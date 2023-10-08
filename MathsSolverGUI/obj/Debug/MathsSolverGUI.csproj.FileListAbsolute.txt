@@ -1,0 +1,10 @@
+C:\dev\AP\MathsSolver\MathsSolverGUI\bin\Debug\MathsSolverGUI.exe.config
+C:\dev\AP\MathsSolver\MathsSolverGUI\bin\Debug\MathsSolverGUI.exe
+C:\dev\AP\MathsSolver\MathsSolverGUI\bin\Debug\MathsSolverGUI.pdb
+C:\dev\AP\MathsSolver\MathsSolverGUI\obj\Debug\MathsSolverGUI.csproj.AssemblyReference.cache
+C:\dev\AP\MathsSolver\MathsSolverGUI\obj\Debug\MathsSolverGUI.Form1.resources
+C:\dev\AP\MathsSolver\MathsSolverGUI\obj\Debug\MathsSolverGUI.Properties.Resources.resources
+C:\dev\AP\MathsSolver\MathsSolverGUI\obj\Debug\MathsSolverGUI.csproj.GenerateResource.cache
+C:\dev\AP\MathsSolver\MathsSolverGUI\obj\Debug\MathsSolverGUI.csproj.CoreCompileInputs.cache
+C:\dev\AP\MathsSolver\MathsSolverGUI\obj\Debug\MathsSolverGUI.exe
+C:\dev\AP\MathsSolver\MathsSolverGUI\obj\Debug\MathsSolverGUI.pdb
