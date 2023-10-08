@@ -1,8 +1,6 @@
 ﻿// Learn more about F# at https://fsharp.org
 // See the 'F# Tutorial' project for more help.
 
-
-
 #load "lexer.fs"
 #load "parser.fs"
 #load "shunting_yard.fs"
