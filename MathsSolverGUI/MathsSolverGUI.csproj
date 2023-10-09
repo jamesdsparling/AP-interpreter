@@ -80,5 +80,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MathsSolverBackend\MathsSolverBackend.fsproj">
+      <Project>{39c5a2d2-dc28-4e58-845f-1358163083b2}</Project>
+      <Name>MathsSolverBackend</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

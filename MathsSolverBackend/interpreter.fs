@@ -1,12 +1,11 @@
 // interpreter.fs
 // Evaluates mathmatical expressions
 
-namespace MathsSolverBackend
+namespace MathSolverBackend
 
-    module Interpreter =
+    module Interpreter = 
 
         open Lexer
-        open Parser
         open ShuntingYard
 
         // Evaluate result of expression
@@ -43,4 +42,3 @@ namespace MathsSolverBackend
             |> List.iter (fun expr -> printfn "%s = %f" expr (interpret expr))
 
         test ()
-

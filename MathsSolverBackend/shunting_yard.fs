@@ -1,9 +1,8 @@
 // shunting_yard.fs
 // Uses shunting-yard algorithm to convert infix notation to postfix
 
-namespace MathsSolverBackend
-
-    module ShuntingYard =
+namespace MathSolverBackend
+    module ShuntingYard = 
 
         open Lexer
 
@@ -15,7 +14,7 @@ namespace MathsSolverBackend
 
         let rec processTokens tokens output ops =
             match tokens with
-            | [] -> List.rev output @ ops
+            | [] | EOF :: _ -> List.rev output @ ops
             | (NUMBER n) :: rest -> 
                 processTokens rest (NUMBER n :: output) ops
             | LPAREN :: rest ->
@@ -26,7 +25,6 @@ namespace MathsSolverBackend
             | token :: rest when [PLUS; TIMES] |> List.contains token ->
                 let (lowerPrecedence, sameOrHigherPrecedence) = List.partition (fun op -> precedence op < precedence token) ops
                 processTokens rest (List.rev sameOrHigherPrecedence @ output) (token :: lowerPrecedence) 
-            | EOF :: _ -> List.rev output @ ops
             | token :: _ -> 
                 failwithf "Unexpected token: %A" token
 

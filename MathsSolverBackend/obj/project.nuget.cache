@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "SuY/mapcTwr7wXO/XVNJKcwVV3IdeX05hlp6XQYwGONi+CqTNHik1QtXyxZkyevipc+JSUzcym+d1lTFPWz+xw==",
+  "dgSpecHash": "iFa6fJssJdNRbK8XtFcPNP9MCTFdzrCvCJhOAFLzp37bRpVPrPehZ5gt8a/vr9A+ttA2aX07OrkHAnUkoB1tDQ==",
   "success": true,
-  "projectFilePath": "C:\\dev\\AP\\MathsSolver\\MathsSolverBackend\\MathsSolverBackend.fsproj",
+  "projectFilePath": "/Users/james/Desktop/Advanced Programming/Adv-programming/MathsSolverBackend/MathsSolverBackend.fsproj",
   "expectedPackageFiles": [
-    "C:\\Users\\truha\\.nuget\\packages\\fsharp.core\\7.0.400\\fsharp.core.7.0.400.nupkg.sha512"
+    "/Users/james/.nuget/packages/fsharp.core/7.0.400/fsharp.core.7.0.400.nupkg.sha512",
+    "/Users/james/.nuget/packages/microsoft.netframework.referenceassemblies/1.0.3/microsoft.netframework.referenceassemblies.1.0.3.nupkg.sha512",
+    "/Users/james/.nuget/packages/microsoft.netframework.referenceassemblies.net48/1.0.3/microsoft.netframework.referenceassemblies.net48.1.0.3.nupkg.sha512"
   ],
   "logs": []
 }
