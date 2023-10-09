@@ -19,7 +19,7 @@ namespace MathsSolverGUI
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            txt_display.Focus();
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -33,6 +33,7 @@ namespace MathsSolverGUI
             {
                 txt_display.Text += number;
             }
+            //txt_display.Focus();
         }
 
         private void btn_divide_Click(object sender, EventArgs e)
@@ -53,6 +54,7 @@ namespace MathsSolverGUI
                 label_output.Text = "Error: " + ex.Message;
                 label_output.ForeColor = Color.Red;
             }
+            txt_display.Focus();
         }
 
         private void btn_backspace_Click(object sender, EventArgs e)
@@ -61,6 +63,7 @@ namespace MathsSolverGUI
             {
                 txt_display.Text = txt_display.Text.Substring(0, txt_display.Text.Length - 1);
             }
+            //txt_display.Focus();
         }
 
         private void txt_display_TextChanged(object sender, EventArgs e)
@@ -71,6 +74,7 @@ namespace MathsSolverGUI
         private void btn_clear_Click(object sender, EventArgs e)
         {
             txt_display.Text = string.Empty;
+            txt_display.Focus();
         }
     }
 }
