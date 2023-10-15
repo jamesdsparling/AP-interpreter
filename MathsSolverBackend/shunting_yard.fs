@@ -9,8 +9,8 @@ module ShuntingYard =
 
     let precedence token =
         match token with
-        | PLUS -> 1
-        | TIMES -> 2
+        | PLUS | MINUS -> 1
+        | TIMES | DIVIDE | REMAINDER -> 2
         | _ -> 0
 
     let rec processTokens tokens output ops =
@@ -22,7 +22,7 @@ module ShuntingYard =
         | RPAREN :: rest ->
             let (beforeParen, afterParen) = splitAtParen ops
             processTokens rest (List.rev beforeParen @ output) afterParen
-        | token :: rest when [ PLUS; TIMES ] |> List.contains token ->
+        | token :: rest when [ PLUS; MINUS; TIMES; DIVIDE; REMAINDER; POWER ] |> List.contains token ->
             let (lowerPrecedence, sameOrHigherPrecedence) =
                 List.partition (fun op -> precedence op < precedence token) ops
 

@@ -21,12 +21,36 @@ module Interpreter =
                 let b = List.head stack
                 stack <- List.tail stack
                 stack <- (a + b) :: stack
+            | MINUS ->
+                let a = List.head stack
+                stack <- List.tail stack
+                let b = List.head stack
+                stack <- List.tail stack
+                stack <- (b - a) :: stack
             | TIMES ->
                 let a = List.head stack
                 stack <- List.tail stack
                 let b = List.head stack
                 stack <- List.tail stack
                 stack <- (a * b) :: stack
+            | DIVIDE ->
+                let a = List.head stack
+                stack <- List.tail stack
+                let b = List.head stack
+                stack <- List.tail stack
+                stack <- (b / a) :: stack
+            | REMAINDER ->
+                let a = List.head stack
+                stack <- List.tail stack
+                let b = List.head stack
+                stack <- List.tail stack
+                stack <- (b % a) :: stack
+            | POWER ->
+                let a = List.head stack
+                stack <- List.tail stack
+                let b = List.head stack
+                stack <- List.tail stack
+                stack <- (b ** a) :: stack
             | _ -> ()
 
         List.head stack
