@@ -10,31 +10,32 @@ module ShuntingYard =
     let precedence token =
         match token with
         | PLUS | MINUS -> 1
-        | TIMES | DIVIDE | REMAINDER -> 2
+        | TIMES | DIVIDE -> 2
+        | REMAINDER | POWER -> 3
         | _ -> 0
 
     let rec processTokens tokens output ops =
         match tokens with
         | []
         | EOF :: _ -> List.rev output @ ops
-        | (NUMBER n) :: rest -> processTokens rest (NUMBER n :: output) ops
-        | LPAREN :: rest -> processTokens rest output (LPAREN :: ops)
-        | RPAREN :: rest ->
+        | (NUMBER n) :: tail -> processTokens tail (NUMBER n :: output) ops
+        | LPAREN :: tail -> processTokens tail output (LPAREN :: ops)
+        | RPAREN :: tail ->
             let (beforeParen, afterParen) = splitAtParen ops
-            processTokens rest (List.rev beforeParen @ output) afterParen
-        | token :: rest when [ PLUS; MINUS; TIMES; DIVIDE; REMAINDER; POWER ] |> List.contains token ->
+            processTokens tail (List.rev beforeParen @ output) afterParen
+        | token :: tail when [ PLUS; MINUS; TIMES; DIVIDE; REMAINDER; POWER ] |> List.contains token ->
             let (lowerPrecedence, sameOrHigherPrecedence) =
                 List.partition (fun op -> precedence op < precedence token) ops
 
-            processTokens rest (List.rev sameOrHigherPrecedence @ output) (token :: lowerPrecedence)
+            processTokens tail (List.rev sameOrHigherPrecedence @ output) (token :: lowerPrecedence)
         | token :: _ -> failwithf "Unexpected token: %A" token
 
     and splitAtParen ops =
         let rec aux acc =
             function
             | [] -> failwith "Mismatched parenthesis"
-            | LPAREN :: rest -> (List.rev acc, rest)
-            | op :: rest -> aux (op :: acc) rest
+            | LPAREN :: tail -> (List.rev acc, tail)
+            | op :: tail -> aux (op :: acc) tail
 
         aux [] ops
 
