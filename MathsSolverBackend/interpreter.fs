@@ -8,6 +8,12 @@ module Interpreter =
     open Lexer
     open ShuntingYard
 
+    // Get the first 2 elements from a stack
+    let pop2 stack = 
+        match stack with
+        | a :: b :: tail -> (a, b, tail)
+        | _ -> failwith "Not enough values on stack"
+
     // Evaluate result of expression
     let evaluatePostfix tokens =
         let mutable stack = []
@@ -16,41 +22,23 @@ module Interpreter =
             match token with
             | NUMBER n -> stack <- n :: stack
             | PLUS ->
-                let a = List.head stack
-                stack <- List.tail stack
-                let b = List.head stack
-                stack <- List.tail stack
-                stack <- (a + b) :: stack
+                let a, b, tail = pop2 stack
+                stack <- (a + b) :: tail
             | MINUS ->
-                let a = List.head stack
-                stack <- List.tail stack
-                let b = List.head stack
-                stack <- List.tail stack
-                stack <- (b - a) :: stack
+                let a, b, tail = pop2 stack
+                stack <- (b - a) :: tail
             | TIMES ->
-                let a = List.head stack
-                stack <- List.tail stack
-                let b = List.head stack
-                stack <- List.tail stack
-                stack <- (a * b) :: stack
+                let a, b, tail = pop2 stack
+                stack <- (a * b) :: tail
             | DIVIDE ->
-                let a = List.head stack
-                stack <- List.tail stack
-                let b = List.head stack
-                stack <- List.tail stack
-                stack <- (b / a) :: stack
+                let a, b, tail = pop2 stack
+                stack <- (b / a) :: tail
             | REMAINDER ->
-                let a = List.head stack
-                stack <- List.tail stack
-                let b = List.head stack
-                stack <- List.tail stack
-                stack <- (b % a) :: stack
+                let a, b, tail = pop2 stack
+                stack <- (b % a) :: tail
             | POWER ->
-                let a = List.head stack
-                stack <- List.tail stack
-                let b = List.head stack
-                stack <- List.tail stack
-                stack <- (b ** a) :: stack
+                let a, b, tail = pop2 stack
+                stack <- (b ** a) :: tail
             | _ -> ()
 
         List.head stack
