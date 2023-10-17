@@ -2,6 +2,7 @@
 // See the 'F# Tutorial' project for more help.
 
 #load "lexer.fs"
+#load "utilites.fs"
 #load "shunting_yard.fs"
 #load "interpreter.fs"
 

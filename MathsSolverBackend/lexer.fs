@@ -1,7 +1,7 @@
 // lexer.fs
 // Breaks down input into a sequence of tokens
 
-namespace MathSolverBackend
+namespace MathsSolverBackend
 
 module Lexer =
 

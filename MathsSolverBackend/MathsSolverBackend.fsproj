@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Compile Include="lexer.fs" />
+    <Compile Include="utilites.fs" />
     <Compile Include="shunting_yard.fs" />
     <Compile Include="interpreter.fs" />
     <None Include="Script.fsx" />

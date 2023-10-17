@@ -40,7 +40,7 @@ namespace MathsSolverGUI
         {
             try
             {
-                var result = MathSolverBackend.Interpreter.interpret(txt_display.Text);
+                var result = MathsSolverBackend.Interpreter.interpret(txt_display.Text);
                 label_output.Text = "= " + result.ToString();
                 label_output.ForeColor = Color.White;
             }
