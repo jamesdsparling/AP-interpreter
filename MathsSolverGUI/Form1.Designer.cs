@@ -231,6 +231,8 @@
             // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.button7);
             this.panel1.Controls.Add(this.button6);
             this.panel1.Controls.Add(this.button3);
@@ -255,7 +257,7 @@
             this.panel1.Controls.Add(this.btn_num7);
             this.panel1.Controls.Add(this.btn_num2);
             this.panel1.Controls.Add(this.btn_num1);
-            this.panel1.Location = new System.Drawing.Point(18, 165);
+            this.panel1.Location = new System.Drawing.Point(18, 139);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(384, 454);
             this.panel1.TabIndex = 1;
@@ -363,7 +365,6 @@
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.button1.Enabled = false;
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(59)))), ((int)(((byte)(59)))));
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -374,7 +375,10 @@
             this.button1.Size = new System.Drawing.Size(90, 68);
             this.button1.TabIndex = 0;
             this.button1.TabStop = false;
+            this.button1.Tag = "^";
+            this.button1.Text = "^";
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.NumButton_Click);
             // 
             // btn_divide
             // 
@@ -390,8 +394,10 @@
             this.btn_divide.Size = new System.Drawing.Size(90, 68);
             this.btn_divide.TabIndex = 0;
             this.btn_divide.TabStop = false;
+            this.btn_divide.Tag = "/";
             this.btn_divide.Text = "/";
             this.btn_divide.UseVisualStyleBackColor = false;
+            this.btn_divide.Click += new System.EventHandler(this.NumButton_Click);
             // 
             // btn_multiply
             // 
@@ -520,22 +526,25 @@
             // 
             // txt_display
             // 
+            this.txt_display.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_display.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.txt_display.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_display.Font = new System.Drawing.Font("Lucida Console", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_display.Location = new System.Drawing.Point(18, 31);
-            this.txt_display.Multiline = true;
             this.txt_display.Name = "txt_display";
-            this.txt_display.Size = new System.Drawing.Size(386, 70);
+            this.txt_display.Size = new System.Drawing.Size(384, 39);
             this.txt_display.TabIndex = 3;
             this.txt_display.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txt_display.TextChanged += new System.EventHandler(this.txt_display_TextChanged);
             // 
             // label_output
             // 
+            this.label_output.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label_output.AutoSize = true;
             this.label_output.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_output.ForeColor = System.Drawing.Color.DarkGray;
-            this.label_output.Location = new System.Drawing.Point(12, 111);
+            this.label_output.Location = new System.Drawing.Point(12, 85);
             this.label_output.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_output.Name = "label_output";
             this.label_output.Size = new System.Drawing.Size(63, 37);
@@ -548,11 +557,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.ClientSize = new System.Drawing.Size(420, 637);
+            this.ClientSize = new System.Drawing.Size(420, 612);
             this.Controls.Add(this.label_output);
             this.Controls.Add(this.txt_display);
             this.Controls.Add(this.panel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MinimumSize = new System.Drawing.Size(436, 651);
             this.Name = "Form1";
             this.Text = "Interpreter";
             this.Load += new System.EventHandler(this.Form1_Load);

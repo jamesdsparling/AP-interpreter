@@ -8,7 +8,11 @@ module Lexer =
     type Token =
         | NUMBER of float
         | PLUS
+        | MINUS
         | TIMES
+        | DIVIDE
+        | REMAINDER
+        | POWER
         | LPAREN
         | RPAREN
         | EOF
@@ -24,7 +28,11 @@ module Lexer =
                 match s.[pos] with
                 | c when System.Char.IsWhiteSpace(c) -> aux (pos + 1) acc // Whitespace is ignored
                 | '+' -> aux (pos + 1) (acc @ [ PLUS ])
+                | '-' -> aux (pos + 1) (acc @ [ MINUS ])
                 | '*' -> aux (pos + 1) (acc @ [ TIMES ])
+                | '/' -> aux (pos + 1) (acc @ [ DIVIDE ])
+                | '%' -> aux (pos + 1) (acc @ [ REMAINDER ])
+                | '^' -> aux (pos + 1) (acc @ [ POWER ])
                 | '(' -> aux (pos + 1) (acc @ [ LPAREN ])
                 | ')' -> aux (pos + 1) (acc @ [ RPAREN ])
                 | c when isDigit c -> // Token is a number
