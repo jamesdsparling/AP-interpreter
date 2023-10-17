@@ -66,3 +66,31 @@ C:/dev/AP/MathsSolver/MathsSolverGUI/obj/Debug/MathsSolverGUI.pdb
 \\Mac\Home\Desktop\Advanced Programming\Adv-programming\MathsSolverGUI\bin\Debug\MathsSolverGUI.exe
 \\Mac\Home\Desktop\Advanced Programming\Adv-programming\MathsSolverGUI\bin\Debug\MathsSolverGUI.pdb
 \\Mac\Home\Desktop\Advanced Programming\Adv-programming\MathsSolverGUI\obj\Debug\MathsSolverGUI.csproj.CopyComplete
+C:\dev\AP\MathsSolver\MathsSolverGUI\bin\Debug\MathsSolverGUI.exe.config
+C:\dev\AP\MathsSolver\MathsSolverGUI\bin\Debug\MathsSolverGUI.exe
+C:\dev\AP\MathsSolver\MathsSolverGUI\bin\Debug\MathsSolverGUI.pdb
+C:\dev\AP\MathsSolver\MathsSolverGUI\bin\Debug\MathsSolverBackend.dll
+C:\dev\AP\MathsSolver\MathsSolverGUI\bin\Debug\FSharp.Core.dll
+C:\dev\AP\MathsSolver\MathsSolverGUI\bin\Debug\MathsSolverBackend.pdb
+C:\dev\AP\MathsSolver\MathsSolverGUI\bin\Debug\MathsSolverBackend.xml
+C:\dev\AP\MathsSolver\MathsSolverGUI\bin\Debug\cs\FSharp.Core.resources.dll
+C:\dev\AP\MathsSolver\MathsSolverGUI\bin\Debug\de\FSharp.Core.resources.dll
+C:\dev\AP\MathsSolver\MathsSolverGUI\bin\Debug\es\FSharp.Core.resources.dll
+C:\dev\AP\MathsSolver\MathsSolverGUI\bin\Debug\fr\FSharp.Core.resources.dll
+C:\dev\AP\MathsSolver\MathsSolverGUI\bin\Debug\it\FSharp.Core.resources.dll
+C:\dev\AP\MathsSolver\MathsSolverGUI\bin\Debug\ja\FSharp.Core.resources.dll
+C:\dev\AP\MathsSolver\MathsSolverGUI\bin\Debug\ko\FSharp.Core.resources.dll
+C:\dev\AP\MathsSolver\MathsSolverGUI\bin\Debug\pl\FSharp.Core.resources.dll
+C:\dev\AP\MathsSolver\MathsSolverGUI\bin\Debug\pt-BR\FSharp.Core.resources.dll
+C:\dev\AP\MathsSolver\MathsSolverGUI\bin\Debug\ru\FSharp.Core.resources.dll
+C:\dev\AP\MathsSolver\MathsSolverGUI\bin\Debug\tr\FSharp.Core.resources.dll
+C:\dev\AP\MathsSolver\MathsSolverGUI\bin\Debug\zh-Hans\FSharp.Core.resources.dll
+C:\dev\AP\MathsSolver\MathsSolverGUI\bin\Debug\zh-Hant\FSharp.Core.resources.dll
+C:\dev\AP\MathsSolver\MathsSolverGUI\obj\Debug\MathsSolverGUI.csproj.AssemblyReference.cache
+C:\dev\AP\MathsSolver\MathsSolverGUI\obj\Debug\MathsSolverGUI.Form1.resources
+C:\dev\AP\MathsSolver\MathsSolverGUI\obj\Debug\MathsSolverGUI.Properties.Resources.resources
+C:\dev\AP\MathsSolver\MathsSolverGUI\obj\Debug\MathsSolverGUI.csproj.GenerateResource.cache
+C:\dev\AP\MathsSolver\MathsSolverGUI\obj\Debug\MathsSolverGUI.csproj.CoreCompileInputs.cache
+C:\dev\AP\MathsSolver\MathsSolverGUI\obj\Debug\MathsSolverGUI.csproj.CopyComplete
+C:\dev\AP\MathsSolver\MathsSolverGUI\obj\Debug\MathsSolverGUI.exe
+C:\dev\AP\MathsSolver\MathsSolverGUI\obj\Debug\MathsSolverGUI.pdb

@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "VFrk2hS1vR6If4NXH7UR3k12Ry9+Lld5RA/YU7KTQOgzailTTgwJfFYvF1cKVt63rzVDPa47NqltYIZbL0dOIw==",
+  "dgSpecHash": "SuY/mapcTwr7wXO/XVNJKcwVV3IdeX05hlp6XQYwGONi+CqTNHik1QtXyxZkyevipc+JSUzcym+d1lTFPWz+xw==",
   "success": true,
-  "projectFilePath": "\\\\Mac\\Home\\Desktop\\Advanced Programming\\Adv-programming\\MathsSolverBackend\\MathsSolverBackend.fsproj",
+  "projectFilePath": "C:\\dev\\AP\\MathsSolver\\MathsSolverBackend\\MathsSolverBackend.fsproj",
   "expectedPackageFiles": [
-    "C:\\Users\\james\\.nuget\\packages\\fsharp.core\\7.0.400\\fsharp.core.7.0.400.nupkg.sha512"
+    "C:\\Users\\truha\\.nuget\\packages\\fsharp.core\\7.0.400\\fsharp.core.7.0.400.nupkg.sha512"
   ],
   "logs": []
 }
