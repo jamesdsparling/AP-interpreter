@@ -394,8 +394,10 @@
             this.btn_divide.Size = new System.Drawing.Size(90, 68);
             this.btn_divide.TabIndex = 0;
             this.btn_divide.TabStop = false;
+            this.btn_divide.Tag = "/";
             this.btn_divide.Text = "/";
             this.btn_divide.UseVisualStyleBackColor = false;
+            this.btn_divide.Click += new System.EventHandler(this.NumButton_Click);
             // 
             // btn_multiply
             // 
