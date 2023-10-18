@@ -12,6 +12,7 @@ module ShuntingYard =
         | PLUS | MINUS -> 1
         | TIMES | DIVIDE | REMAINDER -> 2
         | POWER -> 3
+        | UNARY_MINUS -> 4
         | _ -> 0
 
     let rec processTokens tokens output ops =
@@ -23,6 +24,11 @@ module ShuntingYard =
         | RPAREN :: tail ->
             let (beforeParen, afterParen) = splitAtParen ops
             processTokens tail (List.rev beforeParen @ output) afterParen
+
+        | UNARY_MINUS :: tail -> // Handle unary negation
+            let (lowerPrecedence, sameOrHigherPrecedence) = List.partition (fun op -> precedence op < precedence UNARY_MINUS) ops
+            processTokens tail (List.rev sameOrHigherPrecedence @ output) (UNARY_MINUS :: lowerPrecedence)
+
         | token :: tail when [ PLUS; MINUS; TIMES; DIVIDE; REMAINDER; POWER ] |> List.contains token ->
             let (lowerPrecedence, sameOrHigherPrecedence) =
                 List.partition (fun op -> precedence op < precedence token) ops

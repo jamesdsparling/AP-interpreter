@@ -8,6 +8,12 @@ module Interpreter =
     open Lexer
     open ShuntingYard
 
+    // Get the first element from a stack
+    let pop stack =
+        match stack with
+        | a :: tail -> (a, tail)
+        | _ -> failwith "Not enough values on stack"
+
     // Get the first 2 elements from a stack
     let pop2 stack = 
         match stack with
@@ -27,6 +33,9 @@ module Interpreter =
             | MINUS ->
                 let a, b, tail = pop2 stack
                 stack <- (b - a) :: tail
+            | UNARY_MINUS ->
+                let a, tail = pop stack
+                stack <- (-a) :: tail
             | TIMES ->
                 let a, b, tail = pop2 stack
                 stack <- (a * b) :: tail
