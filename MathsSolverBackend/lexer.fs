@@ -29,6 +29,7 @@ module Lexer =
                 match s.[pos] with
                 | c when System.Char.IsWhiteSpace(c) -> aux (pos + 1) acc // Whitespace is ignored
                 | '+' -> aux (pos + 1) (acc @ [ PLUS ])
+<<<<<<< HEAD
                 | '-' ->       
                     if pos = 0 || s.[pos - 1] = '(' || not(s.[pos - 1] = ')' || isDigit s.[pos - 1]) (*|| s.[pos - 1] = '-' *)(*&& isDigit s.[pos - 1]*) then
                         // Token is a unary minus
@@ -37,6 +38,11 @@ module Lexer =
                         // Token is a binary minus
                         aux (pos + 1) (acc @ [ MINUS ])
 
+=======
+                | '-' when pos = 0 || [LPAREN; PLUS; MINUS; TIMES; DIVIDE; REMAINDER; POWER] |> List.contains (List.last acc) ->
+                    aux (pos + 1) (acc @ [ UNARY_MINUS ])
+                | '-' -> aux (pos + 1) (acc @ [ MINUS ])
+>>>>>>> d11eeed9dcf584b4428a775c88e463faa7dafedf
                 | '*' -> aux (pos + 1) (acc @ [ TIMES ])
                 | '/' -> aux (pos + 1) (acc @ [ DIVIDE ])
                 | '%' -> aux (pos + 1) (acc @ [ REMAINDER ])
