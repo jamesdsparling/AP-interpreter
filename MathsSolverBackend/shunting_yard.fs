@@ -1,7 +1,7 @@
 // shunting_yard.fs
 // Uses shunting-yard algorithm to convert infix notation to postfix
 
-namespace MathSolverBackend
+namespace MathsSolverBackend
 
 module ShuntingYard =
 

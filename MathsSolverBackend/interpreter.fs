@@ -1,7 +1,7 @@
 // interpreter.fs
 // Evaluates mathmatical expressions
 
-namespace MathSolverBackend
+namespace MathsSolverBackend
 
 module Interpreter =
 
