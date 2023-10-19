@@ -36,14 +36,6 @@ namespace MathsSolverGUI
             //txt_display.Focus();
         }
 
-<<<<<<< HEAD
-        private void btn_divide_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-=======
->>>>>>> fb277ed6d1ac0508fd34881099d89df2e3657b1e
         private void btn_equals_Click(object sender, EventArgs e)
         {
             try
@@ -79,9 +71,6 @@ namespace MathsSolverGUI
             txt_display.Text = string.Empty;
             txt_display.Focus();
         }
-<<<<<<< HEAD
-=======
 
->>>>>>> fb277ed6d1ac0508fd34881099d89df2e3657b1e
     }
 }
