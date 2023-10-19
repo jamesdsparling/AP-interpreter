@@ -8,6 +8,18 @@ module Interpreter =
     open Lexer
     open ShuntingYard
 
+    // Get the first element from a stack
+    let pop stack =
+        match stack with
+        | a :: tail -> (a, tail)
+        | _ -> failwith "Not enough values on stack (pop1)"
+
+    // Get the first 2 elements from a stack
+    let pop2 stack = 
+        match stack with
+        | a :: b :: tail -> (a, b, tail)
+        | _ -> failwith "Not enough values on stack (pop2)"
+
     // Evaluate result of expression
     let evaluatePostfix tokens =
         let mutable stack = []
@@ -16,17 +28,26 @@ module Interpreter =
             match token with
             | NUMBER n -> stack <- n :: stack
             | PLUS ->
-                let a = List.head stack
-                stack <- List.tail stack
-                let b = List.head stack
-                stack <- List.tail stack
-                stack <- (a + b) :: stack
+                let a, b, tail = pop2 stack
+                stack <- (a + b) :: tail
+            | MINUS ->
+                let a, b, tail = pop2 stack
+                stack <- (b - a) :: tail
+            | UNARY_MINUS ->
+                let a, tail = pop stack
+                stack <- (-a) :: tail
             | TIMES ->
-                let a = List.head stack
-                stack <- List.tail stack
-                let b = List.head stack
-                stack <- List.tail stack
-                stack <- (a * b) :: stack
+                let a, b, tail = pop2 stack
+                stack <- (a * b) :: tail
+            | DIVIDE ->
+                let a, b, tail = pop2 stack
+                stack <- (b / a) :: tail
+            | REMAINDER ->
+                let a, b, tail = pop2 stack
+                stack <- (b % a) :: tail
+            | POWER ->
+                let a, b, tail = pop2 stack
+                stack <- (b ** a) :: tail
             | _ -> ()
 
         List.head stack
