@@ -12,13 +12,13 @@ module Interpreter =
     let pop stack =
         match stack with
         | a :: tail -> (a, tail)
-        | _ -> failwith "Not enough values on stack"
+        | _ -> failwith "Not enough values on stack (pop1)"
 
     // Get the first 2 elements from a stack
     let pop2 stack = 
         match stack with
         | a :: b :: tail -> (a, b, tail)
-        | _ -> failwith "Not enough values on stack"
+        | _ -> failwith "Not enough values on stack (pop2)"
 
     // Evaluate result of expression
     let evaluatePostfix tokens =

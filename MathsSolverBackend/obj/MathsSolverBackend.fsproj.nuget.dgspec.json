@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\dev\\AP\\MathsSolver\\MathsSolverBackend\\MathsSolverBackend.fsproj": {}
+    "\\\\Mac\\Home\\Desktop\\Advanced Programming\\Adv-programming\\MathsSolverBackend\\MathsSolverBackend.fsproj": {}
   },
   "projects": {
-    "C:\\dev\\AP\\MathsSolver\\MathsSolverBackend\\MathsSolverBackend.fsproj": {
+    "\\\\Mac\\Home\\Desktop\\Advanced Programming\\Adv-programming\\MathsSolverBackend\\MathsSolverBackend.fsproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\dev\\AP\\MathsSolver\\MathsSolverBackend\\MathsSolverBackend.fsproj",
+        "projectUniqueName": "\\\\Mac\\Home\\Desktop\\Advanced Programming\\Adv-programming\\MathsSolverBackend\\MathsSolverBackend.fsproj",
         "projectName": "MathsSolverBackend",
-        "projectPath": "C:\\dev\\AP\\MathsSolver\\MathsSolverBackend\\MathsSolverBackend.fsproj",
-        "packagesPath": "C:\\Users\\truha\\.nuget\\packages\\",
-        "outputPath": "C:\\dev\\AP\\MathsSolver\\MathsSolverBackend\\obj\\",
+        "projectPath": "\\\\Mac\\Home\\Desktop\\Advanced Programming\\Adv-programming\\MathsSolverBackend\\MathsSolverBackend.fsproj",
+        "packagesPath": "C:\\Users\\james\\.nuget\\packages\\",
+        "outputPath": "\\\\Mac\\Home\\Desktop\\Advanced Programming\\Adv-programming\\MathsSolverBackend\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\truha\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\james\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,7 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\sdk\\7.0.402\\FSharp\\library-packs": {},
+          "C:\\Program Files\\dotnet\\sdk\\7.0.401\\FSharp\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -43,7 +47,7 @@
               "generatePathProperty": true
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }
