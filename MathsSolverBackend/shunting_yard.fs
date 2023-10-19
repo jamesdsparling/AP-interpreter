@@ -10,8 +10,8 @@ module ShuntingYard =
     let precedence token =
         match token with
         | PLUS | MINUS -> 1
-        | TIMES | DIVIDE | REMAINDER | UNARY_MINUS -> 2
-        | POWER -> 3
+        | TIMES | DIVIDE | REMAINDER -> 2
+        | UNARY_MINUS | POWER -> 3
         | _ -> 0
 
     let rec processTokens tokens output ops =
