@@ -17,6 +17,9 @@ module Lexer =
         | LPAREN
         | RPAREN
         | EOF
+        | SIN   // Trigonometric functions
+        | COS
+        | TAN
 
     // Convert input (string) -> tokens
     let tokenize (s: string) =
@@ -57,6 +60,10 @@ module Lexer =
                         aux nextPos (newAcc  @ [ TIMES ])
                     else
                         aux endPos newAcc 
+
+                | 's' -> aux (pos + 1) (acc @ [ SIN ])
+                | 'c' -> aux (pos + 1) (acc @ [ COS ])
+                | 't' -> aux (pos + 1) (acc @ [ TAN ])
 
                 | _ -> failwith "Invalid character encountered"
 

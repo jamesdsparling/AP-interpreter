@@ -5,8 +5,11 @@ namespace MathsSolverBackend
 
 module Interpreter =
 
+    open System
     open Lexer
     open ShuntingYard
+
+    let toRadians = Math.PI / 180.0
 
     // Get the first element from a stack
     let pop stack =
@@ -48,6 +51,15 @@ module Interpreter =
             | POWER ->
                 let a, b, tail = pop2 stack
                 stack <- (b ** a) :: tail
+            | SIN -> // Handle SIN function
+                let a, tail = pop stack
+                stack <- Math.Round(sin(a * toRadians), 10) :: tail
+            | COS -> // Handle COS function
+                let a, tail = pop stack
+                stack <- Math.Round(cos(a * toRadians), 10) :: tail
+            | TAN -> // Handle TAN function
+                let a, tail = pop stack
+                stack <- Math.Round(tan(a * toRadians), 10) :: tail
             | _ -> ()
 
         List.head stack
