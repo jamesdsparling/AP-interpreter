@@ -38,8 +38,8 @@
             this.btn_num6 = new System.Windows.Forms.Button();
             this.btn_num9 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.btn_lparen = new System.Windows.Forms.Button();
+            this.btn_rparen = new System.Windows.Forms.Button();
             this.btn_sin = new System.Windows.Forms.Button();
             this.btn_clear = new System.Windows.Forms.Button();
             this.btn_cos = new System.Windows.Forms.Button();
@@ -231,8 +231,8 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.button7);
-            this.panel1.Controls.Add(this.button6);
+            this.panel1.Controls.Add(this.btn_lparen);
+            this.panel1.Controls.Add(this.btn_rparen);
             this.panel1.Controls.Add(this.btn_sin);
             this.panel1.Controls.Add(this.btn_clear);
             this.panel1.Controls.Add(this.btn_cos);
@@ -261,37 +261,41 @@
             this.panel1.TabIndex = 1;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
-            // button7
+            // btn_lparen
             // 
-            this.button7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.button7.Enabled = false;
-            this.button7.FlatAppearance.BorderSize = 0;
-            this.button7.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(59)))), ((int)(((byte)(59)))));
-            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button7.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.button7.Location = new System.Drawing.Point(3, 40);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(90, 68);
-            this.button7.TabIndex = 0;
-            this.button7.TabStop = false;
-            this.button7.UseVisualStyleBackColor = false;
+            this.btn_lparen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.btn_lparen.FlatAppearance.BorderSize = 0;
+            this.btn_lparen.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(59)))), ((int)(((byte)(59)))));
+            this.btn_lparen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_lparen.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_lparen.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.btn_lparen.Location = new System.Drawing.Point(3, 40);
+            this.btn_lparen.Name = "btn_lparen";
+            this.btn_lparen.Size = new System.Drawing.Size(90, 68);
+            this.btn_lparen.TabIndex = 0;
+            this.btn_lparen.TabStop = false;
+            this.btn_lparen.Tag = "(";
+            this.btn_lparen.Text = "(";
+            this.btn_lparen.UseVisualStyleBackColor = false;
+            this.btn_lparen.Click += new System.EventHandler(this.NumButton_Click);
             // 
-            // button6
+            // btn_rparen
             // 
-            this.button6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.button6.Enabled = false;
-            this.button6.FlatAppearance.BorderSize = 0;
-            this.button6.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(59)))), ((int)(((byte)(59)))));
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.button6.Location = new System.Drawing.Point(99, 40);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(90, 68);
-            this.button6.TabIndex = 0;
-            this.button6.TabStop = false;
-            this.button6.UseVisualStyleBackColor = false;
+            this.btn_rparen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.btn_rparen.FlatAppearance.BorderSize = 0;
+            this.btn_rparen.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(59)))), ((int)(((byte)(59)))));
+            this.btn_rparen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_rparen.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_rparen.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.btn_rparen.Location = new System.Drawing.Point(99, 40);
+            this.btn_rparen.Name = "btn_rparen";
+            this.btn_rparen.Size = new System.Drawing.Size(90, 68);
+            this.btn_rparen.TabIndex = 0;
+            this.btn_rparen.TabStop = false;
+            this.btn_rparen.Tag = ")";
+            this.btn_rparen.Text = ")";
+            this.btn_rparen.UseVisualStyleBackColor = false;
+            this.btn_rparen.Click += new System.EventHandler(this.NumButton_Click);
             // 
             // btn_sin
             // 
@@ -597,8 +601,8 @@
         private System.Windows.Forms.Button btn_sin;
         private System.Windows.Forms.Button btn_cos;
         private System.Windows.Forms.Button btn_tan;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button btn_lparen;
+        private System.Windows.Forms.Button btn_rparen;
         private System.Windows.Forms.Button btn_clear;
         private System.Windows.Forms.Button btn_backspace;
         private System.Windows.Forms.Button btn_modulus;
