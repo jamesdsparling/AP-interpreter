@@ -38,6 +38,7 @@
             this.btn_num6 = new System.Windows.Forms.Button();
             this.btn_num9 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.radioDegrees = new System.Windows.Forms.RadioButton();
             this.btn_lparen = new System.Windows.Forms.Button();
             this.btn_rparen = new System.Windows.Forms.Button();
             this.btn_sin = new System.Windows.Forms.Button();
@@ -55,6 +56,7 @@
             this.btn_num0 = new System.Windows.Forms.Button();
             this.txt_display = new System.Windows.Forms.TextBox();
             this.label_output = new System.Windows.Forms.Label();
+            this.radioRadians = new System.Windows.Forms.RadioButton();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -231,6 +233,8 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.radioRadians);
+            this.panel1.Controls.Add(this.radioDegrees);
             this.panel1.Controls.Add(this.btn_lparen);
             this.panel1.Controls.Add(this.btn_rparen);
             this.panel1.Controls.Add(this.btn_sin);
@@ -260,6 +264,21 @@
             this.panel1.Size = new System.Drawing.Size(673, 478);
             this.panel1.TabIndex = 1;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // radioDegrees
+            // 
+            this.radioDegrees.AutoSize = true;
+            this.radioDegrees.Checked = true;
+            this.radioDegrees.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioDegrees.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.radioDegrees.Location = new System.Drawing.Point(3, 10);
+            this.radioDegrees.Name = "radioDegrees";
+            this.radioDegrees.Size = new System.Drawing.Size(88, 24);
+            this.radioDegrees.TabIndex = 1;
+            this.radioDegrees.TabStop = true;
+            this.radioDegrees.Text = "Degrees";
+            this.radioDegrees.UseVisualStyleBackColor = true;
+            this.radioDegrees.CheckedChanged += new System.EventHandler(this.btn_equals_Click);
             // 
             // btn_lparen
             // 
@@ -558,6 +577,18 @@
             this.label_output.TabIndex = 4;
             this.label_output.Text = "= 0";
             // 
+            // radioRadians
+            // 
+            this.radioRadians.AutoSize = true;
+            this.radioRadians.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioRadians.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.radioRadians.Location = new System.Drawing.Point(99, 10);
+            this.radioRadians.Name = "radioRadians";
+            this.radioRadians.Size = new System.Drawing.Size(86, 24);
+            this.radioRadians.TabIndex = 2;
+            this.radioRadians.Text = "Radians";
+            this.radioRadians.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AcceptButton = this.btn_equals;
@@ -572,6 +603,7 @@
             this.Text = "Interpreter";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -606,6 +638,8 @@
         private System.Windows.Forms.Button btn_backspace;
         private System.Windows.Forms.Button btn_modulus;
         private System.Windows.Forms.Label label_output;
+        private System.Windows.Forms.RadioButton radioDegrees;
+        private System.Windows.Forms.RadioButton radioRadians;
     }
 }
 

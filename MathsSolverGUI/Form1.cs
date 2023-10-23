@@ -40,7 +40,11 @@ namespace MathsSolverGUI
         {
             try
             {
-                var result = MathsSolverBackend.Interpreter.interpret(txt_display.Text);
+                var mode = radioDegrees.Checked ?
+                   MathsSolverBackend.Interpreter.AngleMode.Degrees :
+                   MathsSolverBackend.Interpreter.AngleMode.Radians;
+                var result = MathsSolverBackend.Interpreter.interpret(txt_display.Text, mode);
+
                 label_output.Text = "= " + result.ToString();
                 label_output.ForeColor = Color.White;
             }
@@ -71,6 +75,5 @@ namespace MathsSolverGUI
             txt_display.Text = string.Empty;
             txt_display.Focus();
         }
-
     }
 }
