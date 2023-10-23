@@ -38,20 +38,22 @@ namespace MathsSolverGUI
 
         private void btn_equals_Click(object sender, EventArgs e)
         {
-            try
-            {
-                var mode = radioDegrees.Checked ?
-                   MathsSolverBackend.Interpreter.AngleMode.Degrees :
-                   MathsSolverBackend.Interpreter.AngleMode.Radians;
-                var result = MathsSolverBackend.Interpreter.interpret(txt_display.Text, mode);
+            if (!(string.IsNullOrWhiteSpace(txt_display.Text))) {
+                try
+                {
+                    var mode = radioDegrees.Checked ?
+                       MathsSolverBackend.Interpreter.AngleMode.Degrees :
+                       MathsSolverBackend.Interpreter.AngleMode.Radians;
+                    var result = MathsSolverBackend.Interpreter.interpret(txt_display.Text, mode);
 
-                label_output.Text = "= " + result.ToString();
-                label_output.ForeColor = Color.White;
-            }
-            catch (Exception ex)
-            {
-                label_output.Text = "Error: " + ex.Message;
-                label_output.ForeColor = Color.Red;
+                    label_output.Text = "= " + result.ToString();
+                    label_output.ForeColor = Color.White;
+                }
+                catch (Exception ex)
+                {
+                    label_output.Text = "Error: " + ex.Message;
+                    label_output.ForeColor = Color.Red;
+                }
             }
             txt_display.Focus();
         }

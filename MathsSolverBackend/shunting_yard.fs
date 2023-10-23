@@ -18,7 +18,12 @@ module ShuntingYard =
     let rec processTokens tokens output ops =
         match tokens with
         | []
-        | EOF :: _ -> List.rev output @ ops
+        | EOF :: _ ->
+            if ops |> List.exists (fun op -> op = LPAREN) then
+                failwith "Mismatched left parenthesis"
+            else match ops with
+                | RPAREN :: _ -> failwith "Mismatched right parenthesis"
+                | _ -> List.rev output @ ops
         | (NUMBER n) :: tail -> processTokens tail (NUMBER n :: output) ops
         | LPAREN :: tail -> processTokens tail output (LPAREN :: ops)
         | RPAREN :: tail ->
@@ -29,7 +34,6 @@ module ShuntingYard =
         | token :: tail when [ PLUS; MINUS; TIMES; DIVIDE; REMAINDER; POWER; UNARY_MINUS] |> List.contains token ->
             let (lowerPrecedence, sameOrHigherPrecedence) =
                 List.partition (fun op -> precedence op < precedence token) ops
-
             processTokens tail (List.rev sameOrHigherPrecedence @ output) (token :: lowerPrecedence)
         | token :: _ -> failwithf "Unexpected token: %A" token
 
