@@ -12,8 +12,7 @@ module ShuntingYard =
         | PLUS | MINUS -> 1
         | TIMES | DIVIDE | REMAINDER -> 2
         | POWER -> 3
-        | SIN | COS | TAN -> 4
-        | UNARY_MINUS -> 5
+        | UNARY_MINUS -> 4
         | _ -> 0
 
     let rec processTokens tokens output ops =
@@ -25,7 +24,9 @@ module ShuntingYard =
         | RPAREN :: tail ->
             let (beforeParen, afterParen) = splitAtParen ops
             processTokens tail (List.rev beforeParen @ output) afterParen
-        | token :: tail when [ PLUS; MINUS; TIMES; DIVIDE; REMAINDER; POWER; UNARY_MINUS; SIN; COS; TAN ] |> List.contains token ->
+        | token :: LPAREN :: tail when [SIN; COS; TAN] |> List.contains token ->
+            processTokens tail output (LPAREN :: token :: ops)
+        | token :: tail when [ PLUS; MINUS; TIMES; DIVIDE; REMAINDER; POWER; UNARY_MINUS] |> List.contains token ->
             let (lowerPrecedence, sameOrHigherPrecedence) =
                 List.partition (fun op -> precedence op < precedence token) ops
 
@@ -39,6 +40,9 @@ module ShuntingYard =
             | LPAREN :: tail -> (List.rev acc, tail)
             | op :: tail -> aux (op :: acc) tail
 
-        aux [] ops
+        let (processed, remaining) = aux [] ops
+        match remaining with
+        | SIN :: rest | COS :: rest | TAN :: rest -> (List.rev processed, remaining)
+        | _ -> (processed, remaining)
 
     let infixToPostfix tokens = processTokens tokens [] []

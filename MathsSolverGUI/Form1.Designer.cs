@@ -310,7 +310,7 @@
             this.btn_sin.Size = new System.Drawing.Size(90, 68);
             this.btn_sin.TabIndex = 0;
             this.btn_sin.TabStop = false;
-            this.btn_sin.Tag = "s(";
+            this.btn_sin.Tag = "sin(";
             this.btn_sin.Text = "sin";
             this.btn_sin.UseVisualStyleBackColor = false;
             this.btn_sin.Click += new System.EventHandler(this.NumButton_Click);
@@ -345,7 +345,7 @@
             this.btn_cos.Size = new System.Drawing.Size(90, 68);
             this.btn_cos.TabIndex = 0;
             this.btn_cos.TabStop = false;
-            this.btn_cos.Tag = "c(";
+            this.btn_cos.Tag = "cos(";
             this.btn_cos.Text = "cos";
             this.btn_cos.UseVisualStyleBackColor = false;
             this.btn_cos.Click += new System.EventHandler(this.NumButton_Click);
@@ -381,7 +381,7 @@
             this.btn_tan.Size = new System.Drawing.Size(90, 68);
             this.btn_tan.TabIndex = 0;
             this.btn_tan.TabStop = false;
-            this.btn_tan.Tag = "t(";
+            this.btn_tan.Tag = "tan(";
             this.btn_tan.Text = "tan";
             this.btn_tan.UseVisualStyleBackColor = false;
             this.btn_tan.Click += new System.EventHandler(this.NumButton_Click);
@@ -564,11 +564,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.ClientSize = new System.Drawing.Size(697, 637);
+            this.ClientSize = new System.Drawing.Size(697, 639);
             this.Controls.Add(this.label_output);
             this.Controls.Add(this.txt_display);
             this.Controls.Add(this.panel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Form1";
             this.Text = "Interpreter";
             this.Load += new System.EventHandler(this.Form1_Load);

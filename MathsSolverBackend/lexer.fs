@@ -61,9 +61,9 @@ module Lexer =
                     else
                         aux endPos newAcc 
 
-                | 's' -> aux (pos + 1) (acc @ [ SIN ])
-                | 'c' -> aux (pos + 1) (acc @ [ COS ])
-                | 't' -> aux (pos + 1) (acc @ [ TAN ])
+                | 's' when s.Substring(pos, 3) = "sin" -> aux (pos + 3) (acc @ [ SIN ])
+                | 'c' when s.Substring(pos, 3) = "cos" -> aux (pos + 3) (acc @ [ COS ])
+                | 't' when s.Substring(pos, 3) = "tan" -> aux (pos + 3) (acc @ [ TAN ])
 
                 | _ -> failwith "Invalid character encountered"
 
