@@ -1,12 +1,11 @@
 // lexer.fs
-// Breaks down input into a sequence of tokens
-
 namespace MathsSolverBackend
 
 module Lexer =
 
     type Token =
-        | NUMBER of float
+        | INTEGER of int
+        | FLOAT of float
         | PLUS
         | MINUS
         | UNARY_MINUS  // Unary negation
@@ -21,53 +20,45 @@ module Lexer =
         | COS
         | TAN
 
-    let tokenize (s: string) =
+    let str2lst s = [for c in s -> c]
+    let lexError = System.Exception("Lexer error")
+
     let isDigit c = '0' <= c && c <= '9'
+    let isBlank c = System.Char.IsWhiteSpace(c)
 
-    let rec aux pos acc =
-        if pos = s.Length then
-            (acc @ [ EOF ]) // End of string
-        else
-            match s.[pos] with
-            | c when System.Char.IsWhiteSpace(c) -> aux (pos + 1) acc // Whitespace is ignored
-            | '+' -> aux (pos + 1) (acc @ [ PLUS ])
-            | '-' when pos = 0 || [LPAREN; PLUS; MINUS; TIMES; DIVIDE; REMAINDER; POWER] |> List.contains (List.last acc) ->
-                aux (pos + 1) (acc @ [ UNARY_MINUS ])
-            | '-' -> aux (pos + 1) (acc @ [ MINUS ])
-            | '*' -> aux (pos + 1) (acc @ [ TIMES ])
-            | '/' -> aux (pos + 1) (acc @ [ DIVIDE ])
-            | '%' -> aux (pos + 1) (acc @ [ REMAINDER ])
-            | '^' -> aux (pos + 1) (acc @ [ POWER ])
-            | ')' -> 
-                let newAcc = acc @ [ RPAREN ]
-                let nextPos = pos + 1
-                if nextPos < s.Length && (s.[nextPos] = '(' || isDigit s.[nextPos]) then
-                    aux nextPos (newAcc @ [ TIMES ])
+    let isDigitOrDot c = isDigit c || c = '.'
+
+    let extractNumber (input: char list) =
+        let rec extractAccum input acc =
+            match input with
+            | head :: tail when isDigitOrDot head -> extractAccum tail (head :: acc)
+            | _ -> (List.rev acc, input)
+        extractAccum input []
+
+    let lexer (input: string) =
+        let rec scan input =
+            match input with
+            | [] -> [EOF]
+            | '+'::tail -> PLUS :: scan tail
+            | '-'::tail -> MINUS :: scan tail
+            | '*'::tail -> TIMES :: scan tail
+            | '/'::tail -> DIVIDE :: scan tail
+            | '^'::tail -> POWER :: scan tail
+            | '('::tail -> LPAREN :: scan tail
+            | ')'::tail -> RPAREN :: scan tail
+            | 's'::'i'::'n'::tail -> SIN :: scan tail
+            | 'c'::'o'::'s'::tail -> COS :: scan tail
+            | 't'::'a'::'n'::tail -> TAN :: scan tail
+            | c :: tail when isBlank c -> scan tail
+            | c :: tail when isDigit c -> 
+                let (numList, rest) = extractNumber (c :: tail)
+                let numStr = new string (Array.ofList numList)
+                if numStr.Contains(".") then 
+                    FLOAT (float numStr) :: scan rest
                 else
-                    aux nextPos newAcc
-            | '(' -> aux (pos + 1) (acc @ [ LPAREN ])
-            | c when isDigit c -> 
-                let start = pos
+                    INTEGER (int numStr) :: scan rest
+                
+            | _ -> raise lexError
 
-                let rec findEnd pos =
-                    if pos < s.Length && (isDigit s.[pos] || s.[pos] = '.') then
-                        findEnd (pos + 1)
-                    else
-                        pos
+        scan (str2lst input)
 
-                let endPos = findEnd (pos + 1)
-                let number = float (s.Substring(start, endPos - start))
-
-                let newAcc = acc @ [ NUMBER number ]
-                let nextPos = pos + (endPos - start)
-                if nextPos < s.Length && (s.[nextPos] = '(' || isDigit s.[nextPos]) then
-                    aux nextPos (newAcc @ [ TIMES ])
-                else
-                    aux endPos newAcc 
-
-            | 's' when s.Substring(pos, 3) = "sin" -> aux (pos + 3) (acc @ [ SIN ])
-            | 'c' when s.Substring(pos, 3) = "cos" -> aux (pos + 3) (acc @ [ COS ])
-            | 't' when s.Substring(pos, 3) = "tan" -> aux (pos + 3) (acc @ [ TAN ])
-            | _ -> failwith "Invalid character encountered"
-
-    aux 0 []

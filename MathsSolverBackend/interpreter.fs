@@ -1,81 +1,57 @@
 // interpreter.fs
-// Evaluates mathmatical expressions
-
 namespace MathsSolverBackend
 
 module Interpreter =
 
-    open System
     open Lexer
-    open ShuntingYard
+
+    let parseError = System.Exception("Parser error")
 
     type AngleMode = Degrees | Radians
-    let toRadians = Math.PI / 180.0
+    let toRadians = System.Math.PI / 180.0
 
-    // Get the first element from a stack
-    let pop stack =
-        match stack with
-        | a :: tail -> (a, tail)
-        | _ -> failwith "Not enough values on stack (pop1)"
-
-    // Get the first 2 elements from a stack
-    let pop2 stack = 
-        match stack with
-        | a :: b :: tail -> (a, b, tail)
-        | _ -> failwith "Not enough values on stack (pop2)"
-
-    // Evaluate result of expression
-    let evaluatePostfix tokens mode =
-        let mutable stack = []
-
+    let rec evaluateExpr tokens mode =
         let convertAngle mode value =
             match mode with
             | Degrees -> value * toRadians
             | Radians -> value
 
+        let rec E tList acc =
+            match tList with
+            | (INTEGER n) :: tail -> E tail (acc + float n)
+            | (FLOAT n) :: tail -> E tail (acc + n)
+            | PLUS :: tail -> 
+                let (newTail, value) = T tail
+                E newTail (acc + value)
+            | MINUS :: tail -> 
+                let (newTail, value) = T tail
+                E newTail (acc - value)
+            | _ -> (tList, acc)
 
-        for token in tokens do
-            match token with
-            | NUMBER n -> stack <- n :: stack
-            | PLUS ->
-                let a, b, tail = pop2 stack
-                stack <- (a + b) :: tail
-            | MINUS ->
-                let a, b, tail = pop2 stack
-                stack <- (b - a) :: tail
-            | UNARY_MINUS ->
-                let a, tail = pop stack
-                stack <- (-a) :: tail
-            | TIMES ->
-                let a, b, tail = pop2 stack
-                stack <- (a * b) :: tail
-            | DIVIDE ->
-                let a, b, tail = pop2 stack
-                stack <- (b / a) :: tail
-            | REMAINDER ->
-                let a, b, tail = pop2 stack
-                stack <- (b % a) :: tail
-            | POWER ->
-                let a, b, tail = pop2 stack
-                stack <- (b ** a) :: tail
-            | SIN ->
-                let a, tail = pop stack
-                let converted = convertAngle mode a
-                stack <- Math.Round(sin(converted), 10) :: tail
-            | COS ->
-                let a, tail = pop stack
-                let converted = convertAngle mode a
-                stack <- Math.Round(cos(converted), 10) :: tail
-            | TAN ->
-                let a, tail = pop stack
-                let converted = convertAngle mode a
-                stack <- Math.Round(tan(converted), 10) :: tail
-            | _ -> ()
+        and T tList =
+            match tList with
+            | (INTEGER n) :: tail -> (tail, float n)
+            | (FLOAT n) :: tail -> (tail, n)
+            | SIN :: LPAREN :: tail -> 
+                let (newTail, value) = E tail 0.0
+                (match newTail with
+                 | RPAREN :: tail -> (tail, System.Math.Sin(convertAngle mode value))
+                 | _ -> raise parseError)
+            | COS :: LPAREN :: tail -> 
+                let (newTail, value) = E tail 0.0
+                (match newTail with
+                 | RPAREN :: tail -> (tail, System.Math.Cos(convertAngle mode value))
+                 | _ -> raise parseError)
+            | TAN :: LPAREN :: tail -> 
+                let (newTail, value) = E tail 0.0
+                (match newTail with
+                 | RPAREN :: tail -> (tail, System.Math.Tan(convertAngle mode value))
+                 | _ -> raise parseError)
+            | _ -> raise parseError
 
-        List.head stack
+        E tokens 0.0
 
-    // Interpret input string
     let interpret input mode =
-        let tokens = tokenize input
-        let postfix = infixToPostfix tokens
-        evaluatePostfix postfix mode
+        let tokens = lexer input
+        let _, result = evaluateExpr tokens mode
+        result
