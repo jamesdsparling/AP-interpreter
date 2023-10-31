@@ -8,7 +8,6 @@ module Lexer =
         | FLOAT of float
         | PLUS
         | MINUS
-        | UNARY_MINUS  // Unary negation
         | TIMES
         | DIVIDE
         | REMAINDER
@@ -20,20 +19,24 @@ module Lexer =
         | COS
         | TAN
 
-    let str2lst s = [for c in s -> c]
     let lexError = System.Exception("Lexer error")
 
-    let isDigit c = '0' <= c && c <= '9'
-    let isBlank c = System.Char.IsWhiteSpace(c)
+    let str2lst s = [for c in s -> c]
+    let isBlank c = System.Char.IsWhiteSpace c
+    let isDigit c = System.Char.IsDigit c
+    let intVal (c:char) = (int)((int)c - (int)'0')
 
-    let isDigitOrDot c = isDigit c || c = '.'
+    let rec scInt (iStr, iVal) = 
+        match iStr with
+        | c::tail when isDigit c -> scInt(tail, 10*iVal+(intVal c))
+        | _ -> (iStr, iVal)
 
-    let extractNumber (input: char list) =
-        let rec extractAccum input acc =
-            match input with
-            | head :: tail when isDigitOrDot head -> extractAccum tail (head :: acc)
-            | _ -> (List.rev acc, input)
-        extractAccum input []
+    let rec scFloat fStr fVal factor =
+        match fStr with
+        | c::tail when isDigit c -> 
+            let newFVal = fVal + ((float (intVal c)) / factor)
+            scFloat tail newFVal (factor * 10.0)
+        | _ -> (fStr, fVal)
 
     let lexer (input: string) =
         let rec scan input =
@@ -51,13 +54,12 @@ module Lexer =
             | 't'::'a'::'n'::tail -> TAN :: scan tail
             | c :: tail when isBlank c -> scan tail
             | c :: tail when isDigit c -> 
-                let (numList, rest) = extractNumber (c :: tail)
-                let numStr = new string (Array.ofList numList)
-                if numStr.Contains(".") then 
-                    FLOAT (float numStr) :: scan rest
-                else
-                    INTEGER (int numStr) :: scan rest
-                
+                let (iStr, iVal) = scInt(tail, intVal c)
+                match iStr with
+                | '.' :: dTail -> 
+                    let (fStr, fVal) = scFloat dTail 0.0 10.0
+                    FLOAT ((float iVal) + fVal) :: scan fStr
+                | _ -> INTEGER iVal :: scan iStr            
             | _ -> raise lexError
 
         scan (str2lst input)

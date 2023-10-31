@@ -10,48 +10,75 @@ module Interpreter =
     type AngleMode = Degrees | Radians
     let toRadians = System.Math.PI / 180.0
 
-    let rec evaluateExpr tokens mode =
+    let rec evaluateExpr tList mode =
         let convertAngle mode value =
             match mode with
             | Degrees -> value * toRadians
             | Radians -> value
 
-        let rec E tList acc =
+        // Expression - addition & subtraction
+        let rec E tList = (T >> Eopt) tList 
+        and Eopt (tList, value) = 
             match tList with
-            | (INTEGER n) :: tail -> E tail (acc + float n)
-            | (FLOAT n) :: tail -> E tail (acc + n)
-            | PLUS :: tail -> 
-                let (newTail, value) = T tail
-                E newTail (acc + value)
-            | MINUS :: tail -> 
-                let (newTail, value) = T tail
-                E newTail (acc - value)
-            | _ -> (tList, acc)
+            | PLUS :: tail ->
+                let (tLst, tval) = T tail
+                Eopt (tLst, value + tval)
+            | MINUS :: tail ->
+                let (tLst, tval) = T tail
+                Eopt (tLst, value - tval)
+            | _ -> (tList, value)
 
-        and T tList =
+        // Term - multiplication, division & remainder
+        and T tList = (P >> Topt) tList
+        and Topt (tList, value) =
             match tList with
-            | (INTEGER n) :: tail -> (tail, float n)
-            | (FLOAT n) :: tail -> (tail, n)
-            | SIN :: LPAREN :: tail -> 
-                let (newTail, value) = E tail 0.0
-                (match newTail with
-                 | RPAREN :: tail -> (tail, System.Math.Sin(convertAngle mode value))
-                 | _ -> raise parseError)
-            | COS :: LPAREN :: tail -> 
-                let (newTail, value) = E tail 0.0
-                (match newTail with
-                 | RPAREN :: tail -> (tail, System.Math.Cos(convertAngle mode value))
-                 | _ -> raise parseError)
-            | TAN :: LPAREN :: tail -> 
-                let (newTail, value) = E tail 0.0
-                (match newTail with
-                 | RPAREN :: tail -> (tail, System.Math.Tan(convertAngle mode value))
-                 | _ -> raise parseError)
+            | TIMES :: tail ->
+                let (tLst, tval) = P tail
+                Topt (tLst, value * tval)
+            | DIVIDE :: tail ->
+                let (tLst, tval) = P tail
+                Topt (tLst, value / tval)
+            | REMAINDER :: tail ->
+                let (tLst, tval) = P tail
+                Topt (tLst, value % tval) 
+            | _ -> (tList, value)
+
+        // Power - exponent operations
+        and P tList = (NR >> Popt) tList
+        and Popt (tList, value) =
+            match tList with
+            | POWER :: tail ->
+                let (tLst, tval) = NR tail
+                Popt (tLst, System.Math.Pow(value, tval))
+            | _ -> (tList, value)
+
+        // Numeric/Parenthesized - numbers, unary operations & functions
+        and NR tList =
+            match tList with 
+            | INTEGER value :: tail -> (tail, float value)
+            | FLOAT value :: tail -> (tail, value)
+            | MINUS :: tail ->
+                let (tLst, tval) = NR tail
+                (tLst, -tval)
+            | SIN :: tail ->
+                let (tLst, tval) = NR tail
+                (tLst, System.Math.Sin(convertAngle mode tval))
+            | COS :: tail ->
+                let (tLst, tval) = NR tail
+                (tLst, System.Math.Cos(convertAngle mode tval))
+            | TAN :: tail ->
+                let (tLst, tval) = NR tail
+                (tLst, System.Math.Tan(convertAngle mode tval))
+            | LPAREN :: tail ->
+                let (tLst, tval) = E tail
+                match tLst with 
+                | RPAREN :: tail -> (tail, tval)
+                | _ -> raise parseError
             | _ -> raise parseError
-
-        E tokens 0.0
+        E tList
 
     let interpret input mode =
         let tokens = lexer input
         let _, result = evaluateExpr tokens mode
         result
+
