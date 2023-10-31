@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterpreterGUI", "InterpreterGUI\InterpreterGUI.csproj", "{06B828C6-90B5-4BC1-A388-F4D59E95EC60}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "InterpreterBackend", "InterpreterBackend\InterpreterBackend.fsproj", "{DE554785-FB96-469C-AD7B-965E8395BF20}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{06B828C6-90B5-4BC1-A388-F4D59E95EC60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06B828C6-90B5-4BC1-A388-F4D59E95EC60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06B828C6-90B5-4BC1-A388-F4D59E95EC60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06B828C6-90B5-4BC1-A388-F4D59E95EC60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE554785-FB96-469C-AD7B-965E8395BF20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE554785-FB96-469C-AD7B-965E8395BF20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE554785-FB96-469C-AD7B-965E8395BF20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE554785-FB96-469C-AD7B-965E8395BF20}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2E389FE6-831C-4535-8998-D56648079648}
+	EndGlobalSection
+EndGlobal
