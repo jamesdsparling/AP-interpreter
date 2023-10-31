@@ -42,16 +42,16 @@ module Lexer =
         let rec scan input =
             match input with
             | [] -> [EOF]
-            | '+'::tail -> PLUS :: scan tail
-            | '-'::tail -> MINUS :: scan tail
-            | '*'::tail -> TIMES :: scan tail
-            | '/'::tail -> DIVIDE :: scan tail
-            | '^'::tail -> POWER :: scan tail
-            | '('::tail -> LPAREN :: scan tail
-            | ')'::tail -> RPAREN :: scan tail
-            | 's'::'i'::'n'::tail -> SIN :: scan tail
-            | 'c'::'o'::'s'::tail -> COS :: scan tail
-            | 't'::'a'::'n'::tail -> TAN :: scan tail
+            | '+' :: tail -> PLUS :: scan tail
+            | '-' :: tail -> MINUS :: scan tail
+            | '*' :: tail -> TIMES :: scan tail
+            | '/' :: tail -> DIVIDE :: scan tail
+            | '^' :: tail -> POWER :: scan tail
+            | '(' :: tail -> LPAREN :: scan tail
+            | ')' :: tail -> RPAREN :: scan tail
+            | 's' :: 'i'::'n'::tail -> SIN :: scan tail
+            | 'c' :: 'o'::'s'::tail -> COS :: scan tail
+            | 't' :: 'a'::'n'::tail -> TAN :: scan tail
             | c :: tail when isBlank c -> scan tail
             | c :: tail when isDigit c -> 
                 let (iStr, iVal) = scInt(tail, intVal c)

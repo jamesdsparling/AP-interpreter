@@ -55,7 +55,7 @@ module Interpreter =
         // Numeric/Parenthesized - numbers, unary operations & functions
         and NR tList =
             match tList with 
-            | INTEGER value :: tail -> (tail, float value)
+            | INTEGER value :: tail -> (tail, value)
             | FLOAT value :: tail -> (tail, value)
             | MINUS :: tail ->
                 let (tLst, tval) = NR tail
