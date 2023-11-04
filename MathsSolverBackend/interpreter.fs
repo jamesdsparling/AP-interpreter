@@ -10,6 +10,21 @@ module Interpreter =
     type AngleMode = Degrees | Radians
     let toRadians = System.Math.PI / 180.0
 
+    let initialSymbolTable =
+        Map.ofList [
+            "x", 10.0;   // Example variable "x" with an initial value
+            "y", 20.0;   // Another example variable "y" with an initial value
+        ]
+
+    // Define a symbol table (variableName -> variableValue)
+    let mutable symbolTable = Map.empty<string, float>
+
+    // Function to look up variable values
+    let lookupVariable variableName =
+        match Map.tryFind variableName symbolTable with
+        | Some value -> value
+        | None -> raise parseError
+
     let rec evaluateExpr tList mode =
         let convertAngle mode value =
             match mode with
@@ -57,10 +72,9 @@ module Interpreter =
             match tList with 
             | INTEGER value :: tail -> (tail, value)
             | FLOAT value :: tail -> (tail, value)
-            | VARIABLE vName :: tail -> 
-                match tail with 
-                | EQUATION :: tail -> E tail
-                | _ -> raise parseError
+            | VARIABLE vName :: tail ->
+                let variableValue = lookupVariable vName
+                (tail, variableValue)
             | MINUS :: tail ->
                 let (tLst, tval) = NR tail
                 (tLst, -tval)
@@ -83,10 +97,14 @@ module Interpreter =
         let VA tList =
             match tList with
             | VARIABLE vName :: tail -> 
-            match tail with 
-                | EQUATION :: tail -> E tail
-                | _ -> E tList
-            | _ -> E tList
+                match tail with 
+                | EQUATION :: tail ->
+                    let (tLst, tval) = E tail
+                    // Update the symbol table with the variable assignment
+                    symbolTable <- Map.add vName tval symbolTable
+                    (tLst, tval)
+                | _ -> (E tList)
+            | _ -> (E tList)
         VA tList
 
 
