@@ -57,6 +57,10 @@ module Interpreter =
             match tList with 
             | INTEGER value :: tail -> (tail, value)
             | FLOAT value :: tail -> (tail, value)
+            | VARIABLE vName :: tail -> 
+                match tail with 
+                | EQUATION :: tail -> E tail
+                | _ -> raise parseError
             | MINUS :: tail ->
                 let (tLst, tval) = NR tail
                 (tLst, -tval)
@@ -75,7 +79,16 @@ module Interpreter =
                 | RPAREN :: tail -> (tail, tval)
                 | _ -> raise parseError
             | _ -> raise parseError
-        E tList
+
+        let VA tList =
+            match tList with
+            | VARIABLE vName :: tail -> 
+            match tail with 
+                | EQUATION :: tail -> E tail
+                | _ -> E tList
+            | _ -> E tList
+        VA tList
+
 
     let interpret input mode =
         let tokens = lexer input
