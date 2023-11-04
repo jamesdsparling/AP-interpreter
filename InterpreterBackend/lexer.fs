@@ -1,5 +1,5 @@
-// lexer.fs
-namespace MathsSolverBackend
+﻿// lexer.fs
+namespace InterpreterBackend
 
 module Lexer =
 
@@ -76,4 +76,5 @@ module Lexer =
             | _ -> raise lexError
 
         scan (str2lst input)
+
 
