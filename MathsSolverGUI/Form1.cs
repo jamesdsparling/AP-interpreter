@@ -77,5 +77,7 @@ namespace MathsSolverGUI
             txt_display.Text = string.Empty;
             txt_display.Focus();
         }
+
+
     }
 }

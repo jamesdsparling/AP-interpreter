@@ -38,6 +38,7 @@
             this.btn_num6 = new System.Windows.Forms.Button();
             this.btn_num9 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.radioRadians = new System.Windows.Forms.RadioButton();
             this.radioDegrees = new System.Windows.Forms.RadioButton();
             this.btn_lparen = new System.Windows.Forms.Button();
             this.btn_rparen = new System.Windows.Forms.Button();
@@ -56,7 +57,6 @@
             this.btn_num0 = new System.Windows.Forms.Button();
             this.txt_display = new System.Windows.Forms.TextBox();
             this.label_output = new System.Windows.Forms.Label();
-            this.radioRadians = new System.Windows.Forms.RadioButton();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -264,6 +264,18 @@
             this.panel1.Size = new System.Drawing.Size(673, 478);
             this.panel1.TabIndex = 1;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // radioRadians
+            // 
+            this.radioRadians.AutoSize = true;
+            this.radioRadians.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioRadians.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.radioRadians.Location = new System.Drawing.Point(99, 10);
+            this.radioRadians.Name = "radioRadians";
+            this.radioRadians.Size = new System.Drawing.Size(86, 24);
+            this.radioRadians.TabIndex = 2;
+            this.radioRadians.Text = "Radians";
+            this.radioRadians.UseVisualStyleBackColor = true;
             // 
             // radioDegrees
             // 
@@ -576,18 +588,6 @@
             this.label_output.Size = new System.Drawing.Size(63, 37);
             this.label_output.TabIndex = 4;
             this.label_output.Text = "= 0";
-            // 
-            // radioRadians
-            // 
-            this.radioRadians.AutoSize = true;
-            this.radioRadians.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioRadians.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.radioRadians.Location = new System.Drawing.Point(99, 10);
-            this.radioRadians.Name = "radioRadians";
-            this.radioRadians.Size = new System.Drawing.Size(86, 24);
-            this.radioRadians.TabIndex = 2;
-            this.radioRadians.Text = "Radians";
-            this.radioRadians.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
