@@ -8,10 +8,10 @@
         Title="MainWindow" Height="450" Width="800"
         Background="#FF1E1E1E">
     <Grid>
-        <TextBox x:Name="txtInput" HorizontalAlignment="Stretch" Height="41" Margin="10" TextWrapping="Wrap" Text="x=4" VerticalAlignment="Top" FontSize="24" Background="#FF3A3A3A" Foreground="White" KeyDown="TextBox_KeyDown"/>
+        <TextBox x:Name="txtInput" HorizontalAlignment="Stretch" Height="41" Margin="10" TextWrapping="Wrap" Text="x=4" VerticalAlignment="Top" FontSize="24" Background="#FF3A3A3A" Foreground="White" KeyDown="TextBox_KeyDown" TextChanged="TextBox_TextChanged"/>
         <GroupBox HorizontalAlignment="Left" Height="45" Header="Angle Unit" Margin="10,93,0,0" VerticalAlignment="Top" Width="156" Foreground="White"/>
-        <RadioButton x:Name="radioDegrees" Content="Degrees" HorizontalAlignment="Left" Margin="18,113,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="True"/>
-        <RadioButton x:Name="radioRadians" Content="Radians" HorizontalAlignment="Left" Margin="94,113,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <RadioButton x:Name="radioDegrees" Content="Degrees" HorizontalAlignment="Left" Margin="18,113,0,0" VerticalAlignment="Top" Foreground="White" Checked="AngleChanged" IsChecked="True" />
+        <RadioButton x:Name="radioRadians" Content="Radians" HorizontalAlignment="Left" Margin="94,113,0,0" VerticalAlignment="Top" Foreground="White" Checked="AngleChanged" />
         <Label x:Name="labOutput" Content="= 0" HorizontalAlignment="Left" Margin="10,56,0,0" VerticalAlignment="Top" FontSize="22" Foreground="Gray"/>
     </Grid>
 </Window>

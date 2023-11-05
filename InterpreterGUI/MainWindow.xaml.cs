@@ -28,30 +28,41 @@ namespace InterpreterGUI
 
         private void RunInterpreter()
         {
-                if (!(string.IsNullOrWhiteSpace(txtInput.Text)))
-                {
-                    try
-                    {
-                        var result = Interpreter.interpret(txtInput.Text, mode: Interpreter.AngleMode.Radians);
-                        labOutput.Content = result;
-                        labOutput.Foreground = new SolidColorBrush(Colors.White);
-                    } 
-                    catch (Exception ex)
-                    {
-                        labOutput.Content = "Error: " + ex.Message;
-                        labOutput.Foreground = new SolidColorBrush(Colors.Red);
-                    }
-                }
+            if (txtInput == null || radioDegrees == null || labOutput == null) { return; }
+            if (string.IsNullOrWhiteSpace(txtInput.Text)) { return; }
+
+            try
+            {
+                var mode = radioDegrees.IsChecked ?? true ?
+                    Interpreter.AngleMode.Degrees :
+                    Interpreter.AngleMode.Radians;
+                var result = Interpreter.interpret(txtInput.Text, mode: mode);
+                labOutput.Content = "= " + result.ToString();
+                labOutput.Foreground = new SolidColorBrush(Colors.White);
+            }
+            catch (Exception ex)
+            {
+                labOutput.Content = "Error: " + ex.Message;
+                labOutput.Foreground = new SolidColorBrush(Colors.Red);
+            }
         }
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
                 RunInterpreter();
-            } else
-            {
-                labOutput.Foreground = new SolidColorBrush(Colors.Gray);
             }
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (labOutput == null) { return; }
+            labOutput.Foreground = new SolidColorBrush(Colors.Gray);
+        }
+
+        private void AngleChanged(object sender, RoutedEventArgs e)
+        {
+            RunInterpreter();
         }
     }
 }
