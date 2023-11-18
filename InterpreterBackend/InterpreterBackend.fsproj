@@ -8,7 +8,6 @@
   <ItemGroup>
     <Compile Include="lexer.fs" />
     <Compile Include="interpreter.fs" />
-    <Compile Include="Library.fs" />
   </ItemGroup>
 
 </Project>

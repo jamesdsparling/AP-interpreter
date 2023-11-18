@@ -1,4 +1,3 @@
-﻿// interpreter.fs
 namespace InterpreterBackend
 
 module Interpreter =
@@ -10,22 +9,20 @@ module Interpreter =
     type AngleMode = Degrees | Radians
     let toRadians = System.Math.PI / 180.0
 
+    // Define an initial symbol table (variableName -> variableValue)
     let initialSymbolTable =
         Map.ofList [
             "x", 10.0;   // Example variable "x" with an initial value
             "y", 20.0;   // Another example variable "y" with an initial value
         ]
 
-    // Define a symbol table (variableName -> variableValue)
-    let mutable symbolTable = Map.empty<string, float>
-
     // Function to look up variable values
-    let lookupVariable variableName =
+    let lookupVariable (variableName: string) (symbolTable: Map<string, float>) =
         match Map.tryFind variableName symbolTable with
         | Some value -> value
         | None -> raise parseError
 
-    let rec evaluateExpr tList mode =
+    let rec evaluateExpr tList mode symbolTable =
         let convertAngle mode value =
             match mode with
             | Degrees -> value * toRadians
@@ -72,9 +69,6 @@ module Interpreter =
             match tList with 
             | INTEGER value :: tail -> (tail, value)
             | FLOAT value :: tail -> (tail, value)
-            | VARIABLE vName :: tail ->
-                let variableValue = lookupVariable vName
-                (tail, variableValue)
             | MINUS :: tail ->
                 let (tLst, tval) = NR tail
                 (tLst, -tval)
@@ -92,25 +86,19 @@ module Interpreter =
                 match tLst with 
                 | RPAREN :: tail -> (tail, tval)
                 | _ -> raise parseError
-            | _ -> raise parseError
-
-        let VA tList =
-            match tList with
-            | VARIABLE vName :: tail -> 
-                match tail with 
+            // Variable assignment
+            | VARIABLE vName :: tail ->
+                match tail with
                 | EQUATION :: tail ->
                     let (tLst, tval) = E tail
-                    // Update the symbol table with the variable assignment
-                    symbolTable <- Map.add vName tval symbolTable
                     (tLst, tval)
-                | _ -> (E tList)
-            | _ -> (E tList)
-        VA tList
+                | _ -> (tail, 0.0)
+            | _ -> raise parseError
+
+        E tList
 
 
     let interpret input mode =
         let tokens = lexer input
-        let _, result = evaluateExpr tokens mode
+        let _, result = evaluateExpr tokens mode Map.empty
         result
-
-
