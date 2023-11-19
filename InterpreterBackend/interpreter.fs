@@ -86,19 +86,22 @@ module Interpreter =
                 match tLst with 
                 | RPAREN :: tail -> (tail, tval)
                 | _ -> raise parseError
-            // Variable assignment
+            // Variable
             | VARIABLE vName :: tail ->
                 match tail with
                 | EQUATION :: tail ->
                     let (tLst, tval) = E tail
+                    let newSymbolTable = Map.add vName tval initialSymbolTable
                     (tLst, tval)
-                | _ -> (tail, 0.0)
+
+                | _ -> (tail, lookupVariable vName initialSymbolTable)
             | _ -> raise parseError
+
 
         E tList
 
 
     let interpret input mode =
         let tokens = lexer input
-        let _, result = evaluateExpr tokens mode Map.empty
+        let _, result = evaluateExpr tokens mode initialSymbolTable
         result
