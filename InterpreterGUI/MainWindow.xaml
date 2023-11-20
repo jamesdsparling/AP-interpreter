@@ -24,11 +24,20 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Button Grid.Column="0" Margin="5">Button 1</Button>
-            <Button Grid.Column="1" Margin="5">Button 2</Button>
-            <Button Grid.Column="2" Margin="5" Click="Button_Click">Button 3</Button>
-
+            <Button Grid.Row="0" Grid.Column="0" Margin="5" Click="Button_Click" >9</Button>
+            <Button Grid.Row="0" Grid.Column="1" Margin="5" Click="Button_Click" >8</Button>
+            <Button Grid.Row="0" Grid.Column="2" Margin="5" Click="Button_Click" >7</Button>
+            <Button Grid.Row="1" Grid.Column="0" Margin="5" Click="Button_Click" >6</Button>
+            <Button Grid.Row="1" Grid.Column="1" Margin="5" Click="Button_Click" >5</Button>
+            <Button Grid.Row="1" Grid.Column="2" Margin="5" Click="Button_Click" >4</Button>
+            <Button Grid.Row="2" Grid.Column="0" Margin="5" Click="Button_Click" >3</Button>
+            <Button Grid.Row="2" Grid.Column="1" Margin="5" Click="Button_Click" >2</Button>
+            <Button Grid.Row="2" Grid.Column="2" Margin="5" Click="Button_Click" >1</Button>
+            <Button Grid.Row="3" Grid.Column="0" Margin="5" Click="Button_Click" >.</Button>
+            <Button Grid.Row="3" Grid.Column="1" Margin="5" Click="Button_Click" >0</Button>
+            <Button Grid.Row="3" Grid.Column="2" Margin="5" Click="Equ_Click" >=</Button>
         </Grid>
 
     </Grid>

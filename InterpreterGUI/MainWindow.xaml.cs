@@ -69,9 +69,17 @@ namespace InterpreterGUI
             RunInterpreter();
         }
 
+        private void Equ_Click(object sender, RoutedEventArgs e)
+        {
+            RunInterpreter();
+        }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            if (sender is Button button)
+            {
+                string buttonText = button.Content.ToString();
+                txtInput.Text += buttonText;
+            }
         }
     }
 }

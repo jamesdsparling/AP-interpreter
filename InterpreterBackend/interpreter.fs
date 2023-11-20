@@ -1,5 +1,5 @@
+// interpreter.fs
 namespace InterpreterBackend
-open System.Collections.ObjectModel
 
 module Interpreter =
 
@@ -10,7 +10,6 @@ module Interpreter =
     type AngleMode = Degrees | Radians
     let toRadians = System.Math.PI / 180.0
 
-    // Define an initial symbol table (variableName -> variableValue)
     let initialSymbolTable =
         Map.ofList [
             "x", 10.0;   // Example variable "x" with an initial value
@@ -18,25 +17,15 @@ module Interpreter =
         ]
 
     // Define a symbol table (variableName -> variableValue)
-    type SymbolData = { Key: string; Value: float }
-    //let mutable symbolTable = Map.empty<string, float>
-    let symbolList = Map.toList initialSymbolTable |> List.map (fun (k,v) -> {Key = k; Value = v})
-    type SymbolViewModel() = 
-        member val Symbols = ObservableCollection<SymbolData>(symbolList) with get, set
-        member this.UpdateSymbols() = 
-            this.Symbols.Clear()
-            let symbolList = Map.toList initialSymbolTable |> List.map (fun (k,v) -> {Key = k; Value = v})
-            for symbol in symbolList do
-                this.Symbols.Add(symbol)
-
+    let mutable symbolTable = Map.empty<string, float>
 
     // Function to look up variable values
-    let lookupVariable (variableName: string) (symbolTable: Map<string, float>) =
+    let lookupVariable variableName =
         match Map.tryFind variableName symbolTable with
         | Some value -> value
         | None -> raise parseError
 
-    let rec evaluateExpr tList mode (symbolTable: Map<string, float>) =
+    let rec evaluateExpr tList mode =
         let convertAngle mode value =
             match mode with
             | Degrees -> value * toRadians
@@ -44,84 +33,83 @@ module Interpreter =
 
         // Expression - addition & subtraction
         let rec E tList = (T >> Eopt) tList 
-        and Eopt (tList, (vID, value)) = 
+        and Eopt (tList, value) = 
             match tList with
             | PLUS :: tail ->
-                let (tLst, (vID, tval)) = T tail
-                Eopt (tLst, (vID, value + tval))
+                let (tLst, tval) = T tail
+                Eopt (tLst, value + tval)
             | MINUS :: tail ->
-                let (tLst, (vID, tval)) = T tail
-                Eopt (tLst, (vID, value - tval))
-            | _ -> (tList, ("", value))
+                let (tLst, tval) = T tail
+                Eopt (tLst, value - tval)
+            | _ -> (tList, value)
 
         // Term - multiplication, division & remainder
         and T tList = (P >> Topt) tList
-        and Topt (tList, (vID, value)) =
+        and Topt (tList, value) =
             match tList with
             | TIMES :: tail ->
-                let (tLst, (vID, tval)) = P tail
-                Topt (tLst, (vID, value * tval))
+                let (tLst, tval) = P tail
+                Topt (tLst, value * tval)
             | DIVIDE :: tail ->
-                let (tLst, (vID, tval)) = P tail
-                Topt (tLst, (vID, value / tval))
+                let (tLst, tval) = P tail
+                Topt (tLst, value / tval)
             | REMAINDER :: tail ->
-                let (tLst, (vID, tval)) = P tail
-                Topt (tLst, (vID, value % tval))
-            | _ -> (tList, ("", value))
+                let (tLst, tval) = P tail
+                Topt (tLst, value % tval) 
+            | _ -> (tList, value)
 
         // Power - exponent operations
         and P tList = (NR >> Popt) tList
-        and Popt (tList, (vID, value)) =
+        and Popt (tList, value) =
             match tList with
             | POWER :: tail ->
-                let (tLst, (vID, tval)) = NR tail
-                Popt (tLst, (vID, System.Math.Pow(value, tval)))
-            | _ -> (tList, ("", value))
+                let (tLst, tval) = NR tail
+                Popt (tLst, System.Math.Pow(value, tval))
+            | _ -> (tList, value)
 
         // Numeric/Parenthesized - numbers, unary operations & functions
         and NR tList =
             match tList with 
-            | INTEGER value :: tail -> (tail, ("", value))
-            | FLOAT value :: tail -> (tail, ("", value))
+            | INTEGER value :: tail -> (tail, value)
+            | FLOAT value :: tail -> (tail, value)
+            | VARIABLE vName :: tail ->
+                let variableValue = lookupVariable vName
+                (tail, variableValue)
             | MINUS :: tail ->
-                let (tLst, (vID, tval)) = NR tail
-                (tLst, ("", -tval))
+                let (tLst, tval) = NR tail
+                (tLst, -tval)
             | SIN :: tail ->
-                let (tLst, (vID, tval)) = NR tail
-                (tLst, ("", System.Math.Sin(convertAngle mode tval)))
+                let (tLst, tval) = NR tail
+                (tLst, System.Math.Sin(convertAngle mode tval))
             | COS :: tail ->
-                let (tLst, (vID, tval)) = NR tail
-                (tLst, ("", System.Math.Cos(convertAngle mode tval)))
+                let (tLst, tval) = NR tail
+                (tLst, System.Math.Cos(convertAngle mode tval))
             | TAN :: tail ->
-                let (tLst, (vID, tval)) = NR tail
-                (tLst, ("", System.Math.Tan(convertAngle mode tval)))
+                let (tLst, tval) = NR tail
+                (tLst, System.Math.Tan(convertAngle mode tval))
             | LPAREN :: tail ->
-                let (tLst, (vID, tval)) = E tail
+                let (tLst, tval) = E tail
                 match tLst with 
-                | RPAREN :: tail -> (tail, ("", tval))
+                | RPAREN :: tail -> (tail, tval)
                 | _ -> raise parseError
-            // Variable
-            | VARIABLE vName :: tail -> 
-                let res = lookupVariable vName initialSymbolTable
-                (tail, (vName, res))
             | _ -> raise parseError
 
-        // Variable assignment
         let VA tList =
             match tList with
-            | VARIABLE vName :: tail ->
-                match tail with
+            | VARIABLE vName :: tail -> 
+                match tail with 
                 | EQUATION :: tail ->
-                    let (tLst, (vID, tval)) = E tail
-                    (tLst, (vName, tval))            
-                | _ -> E tList
-            | _ -> E tList
+                    let (tLst, tval) = E tail
+                    // Update the symbol table with the variable assignment
+                    symbolTable <- Map.add vName tval symbolTable
+                    (tLst, tval)
+                | _ -> (E tList)
+            | _ -> (E tList)
         VA tList
 
 
     let interpret input mode =
         let tokens = lexer input
-        let _, result = evaluateExpr tokens mode initialSymbolTable    
-        let vName = fst result
-        let vValue = snd result
-        vValue
+        let _, result = evaluateExpr tokens mode
+        result
+
