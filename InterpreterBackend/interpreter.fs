@@ -69,13 +69,22 @@ module Interpreter =
 
         // Numeric/Parenthesized - numbers, unary operations & functions
         and NR tList =
+
             match tList with
             | FLOAT value :: LPAREN :: tail ->
                 let newTail = FLOAT value :: TIMES :: LPAREN :: tail
                 let (tLst, tval) = E newTail
                 (tLst, tval)
+            | FLOAT value :: VARIABLE vName :: tail ->
+                let newTail = FLOAT value :: TIMES :: VARIABLE vName :: tail
+                let (tLst, tval) = E newTail
+                (tLst, tval)
             | INTEGER value :: LPAREN :: tail ->
                 let newTail = INTEGER value :: TIMES :: LPAREN :: tail
+                let (tLst, tval) = E newTail
+                (tLst, tval)
+            | INTEGER value :: VARIABLE vName :: tail ->
+                let newTail = INTEGER value :: TIMES :: VARIABLE vName :: tail
                 let (tLst, tval) = E newTail
                 (tLst, tval)
             | VARIABLE vName :: LPAREN :: tail ->
@@ -120,9 +129,13 @@ module Interpreter =
             | _ -> (E tList)
         VA tList
 
-
-    let interpret input mode =
-        let tokens = lexer input
+    let interpret equation mode =
+        let tokens = lexer equation
         let _, result = evaluateExpr tokens mode
         result
+
+(*    let interpret input mode =
+        let tokens = lexer input
+        let _, result = evaluateExpr tokens mode
+        result*)
 
