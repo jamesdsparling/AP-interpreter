@@ -13,19 +13,23 @@
         <RadioButton x:Name="radioDegrees" Content="Degrees" HorizontalAlignment="Left" Margin="18,113,0,0" VerticalAlignment="Top" Foreground="White" Checked="AngleChanged" IsChecked="True" />
         <RadioButton x:Name="radioRadians" Content="Radians" HorizontalAlignment="Left" Margin="94,113,0,0" VerticalAlignment="Top" Foreground="White" Checked="AngleChanged" />
         <Label x:Name="labOutput" Content="= 0" HorizontalAlignment="Left" Margin="10,56,0,0" VerticalAlignment="Top" FontSize="22" Foreground="Gray"/>
-        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Symbols}" Margin="0,149,0,0">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Variable" Binding="{Binding Key}"/>
-                <DataGridTextColumn Header="Value" Binding="{Binding Value}"/>
-                <DataGridTemplateColumn Header="Type">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="Float"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+
+        <Grid x:Name="btnGrid" HorizontalAlignment="Stretch" Margin="10,153, 300, 10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Button Grid.Column="0" Margin="5">Button 1</Button>
+            <Button Grid.Column="1" Margin="5">Button 2</Button>
+            <Button Grid.Column="2" Margin="5" Click="Button_Click">Button 3</Button>
+
+        </Grid>
 
     </Grid>
 </Window>
