@@ -69,7 +69,20 @@ module Interpreter =
 
         // Numeric/Parenthesized - numbers, unary operations & functions
         and NR tList =
-            match tList with 
+            match tList with
+            | FLOAT value :: LPAREN :: tail ->
+                let newTail = FLOAT value :: TIMES :: LPAREN :: tail
+                let (tLst, tval) = E newTail
+                (tLst, tval)
+            | INTEGER value :: LPAREN :: tail ->
+                let newTail = INTEGER value :: TIMES :: LPAREN :: tail
+                let (tLst, tval) = E newTail
+                (tLst, tval)
+            | VARIABLE vName :: LPAREN :: tail ->
+                let newTail = VARIABLE vName :: TIMES :: LPAREN :: tail
+                let (tLst, tval) = E newTail
+                (tLst, tval)
+
             | INTEGER value :: tail -> (tail, value)
             | FLOAT value :: tail -> (tail, value)
             | VARIABLE vName :: tail ->
