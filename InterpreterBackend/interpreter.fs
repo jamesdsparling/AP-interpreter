@@ -129,13 +129,9 @@ module Interpreter =
             | _ -> (E tList)
         VA tList
 
-    let interpret equation mode =
-        let tokens = lexer equation
-        let _, result = evaluateExpr tokens mode
-        result
 
-(*    let interpret input mode =
+    let interpret input mode =
         let tokens = lexer input
         let _, result = evaluateExpr tokens mode
-        result*)
+        result
 
