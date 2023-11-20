@@ -1,4 +1,5 @@
 namespace InterpreterBackend
+open System.Collections.ObjectModel
 
 module Interpreter =
 
@@ -15,6 +16,19 @@ module Interpreter =
             "x", 10.0;   // Example variable "x" with an initial value
             "y", 20.0;   // Another example variable "y" with an initial value
         ]
+
+    // Define a symbol table (variableName -> variableValue)
+    type SymbolData = { Key: string; Value: float }
+    //let mutable symbolTable = Map.empty<string, float>
+    let symbolList = Map.toList initialSymbolTable |> List.map (fun (k,v) -> {Key = k; Value = v})
+    type SymbolViewModel() = 
+        member val Symbols = ObservableCollection<SymbolData>(symbolList) with get, set
+        member this.UpdateSymbols() = 
+            this.Symbols.Clear()
+            let symbolList = Map.toList initialSymbolTable |> List.map (fun (k,v) -> {Key = k; Value = v})
+            for symbol in symbolList do
+                this.Symbols.Add(symbol)
+
 
     // Function to look up variable values
     let lookupVariable (variableName: string) (symbolTable: Map<string, float>) =
