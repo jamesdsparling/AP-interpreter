@@ -10,6 +10,72 @@ module Interpreter =
     type AngleMode = Degrees | Radians
     let toRadians = System.Math.PI / 180.0
 
+    type Number =
+    | Int of int
+    | Float of float
+
+    let addNumbers a b =
+        match (a, b) with
+        | (Int x, Int y) -> Int (x + y)
+        | (Float x, Float y) -> Float (x + y)
+        | (Int x, Float y) -> Float ((float x) + y)
+        | (Float x, Int y) -> Float (x + (float y))
+
+    let subtractNumbers a b =
+        match (a, b) with
+        | (Int x, Int y) -> Int (x - y)
+        | (Float x, Float y) -> Float (x - y)
+        | (Int x, Float y) -> Float ((float x) - y)
+        | (Float x, Int y) -> Float (x - (float y))
+
+    let multiplyNumbers a b =
+        match (a, b) with
+        | (Int x, Int y) -> Int (x * y)
+        | (Float x, Float y) -> Float (x * y)
+        | (Int x, Float y) -> Float ((float x) * y)
+        | (Float x, Int y) -> Float (x * (float y))
+
+    let divideNumbers a b =
+        match (a, b) with
+        | (Int x, Int y) -> Int (x / y)
+        | (Float x, Float y) -> Float (x / y)
+        | (Int x, Float y) -> Float ((float x) / y)
+        | (Float x, Int y) -> Float (x / (float y))
+
+    let moduloNumbers a b =
+        match (a, b) with
+        | (Int x, Int y) -> Int (x % y)
+        | (Float x, Float y) -> Float (x % y)
+        | (Int x, Float y) -> Float ((float x) % y)
+        | (Float x, Int y) -> Float (x % (float y))
+
+    let powerNumbers a b =
+        match (a, b) with
+        | (Int x, Int y) -> Int (System.Convert.ToInt32(System.Math.Pow(float x, float y)))
+        | (Float x, Float y) -> Float (System.Math.Pow(x, y))
+        | (Int x, Float y) -> Float (System.Math.Pow((float x), y))
+        | (Float x, Int y) -> Float (System.Math.Pow(x, (float y)))
+
+    let negateNumber a =
+        match a with
+        | Int x -> Int (-x)
+        | Float x -> Float (-x)
+
+    let sinNumber a =
+        match a with
+        | Int x -> Float(System.Math.Sin(x))
+        | Float x -> Float(System.Math.Sin(x))
+
+    let cosNumber a =
+        match a with
+        | Int x -> Float(System.Math.Cos(x))
+        | Float x -> Float(System.Math.Cos(x))
+
+    let tanNumber a =
+        match a with
+        | Int x -> Float(System.Math.Tan(x))
+        | Float x -> Float(System.Math.Tan(x))
+
     let initialSymbolTable =
         Map.ofList [
             "x", 10.0;   // Example variable "x" with an initial value
@@ -17,7 +83,7 @@ module Interpreter =
         ]
 
     // Define a symbol table (variableName -> variableValue)
-    let mutable symbolTable = Map.empty<string, float>
+    let mutable symbolTable = Map.empty<string, Number> 
 
     // Function to look up variable values
     let lookupVariable variableName =
@@ -37,10 +103,10 @@ module Interpreter =
             match tList with
             | PLUS :: tail ->
                 let (tLst, tval) = T tail
-                Eopt (tLst, value + tval)
+                Eopt (tLst, addNumbers value tval)
             | MINUS :: tail ->
                 let (tLst, tval) = T tail
-                Eopt (tLst, value - tval)
+                Eopt (tLst, subtractNumbers value tval)
             | _ -> (tList, value)
 
         // Term - multiplication, division & remainder
@@ -49,13 +115,13 @@ module Interpreter =
             match tList with
             | TIMES :: tail ->
                 let (tLst, tval) = P tail
-                Topt (tLst, value * tval)
+                Topt (tLst, multiplyNumbers value tval)
             | DIVIDE :: tail ->
                 let (tLst, tval) = P tail
-                Topt (tLst, value / tval)
+                Topt (tLst, divideNumbers value tval)
             | REMAINDER :: tail ->
                 let (tLst, tval) = P tail
-                Topt (tLst, value % tval) 
+                Topt (tLst, moduloNumbers value tval) 
             | _ -> (tList, value)
 
         // Power - exponent operations
@@ -64,7 +130,7 @@ module Interpreter =
             match tList with
             | POWER :: tail ->
                 let (tLst, tval) = NR tail
-                Popt (tLst, System.Math.Pow(value, tval))
+                Popt (tLst, powerNumbers value tval)
             | _ -> (tList, value)
 
         // Numeric/Parenthesized - numbers, unary operations & functions
@@ -92,23 +158,23 @@ module Interpreter =
                 let (tLst, tval) = E newTail
                 (tLst, tval)
 
-            | INTEGER value :: tail -> (tail, value)
-            | FLOAT value :: tail -> (tail, value)
+            | INTEGER value :: tail -> (tail, Int(value))
+            | FLOAT value :: tail -> (tail, Float(value))
             | VARIABLE vName :: tail ->
                 let variableValue = lookupVariable vName
                 (tail, variableValue)
             | MINUS :: tail ->
                 let (tLst, tval) = NR tail
-                (tLst, -tval)
+                (tLst, negateNumber tval)
             | SIN :: tail ->
                 let (tLst, tval) = NR tail
-                (tLst, System.Math.Sin(convertAngle mode tval))
+                (tLst, sinNumber tval)
             | COS :: tail ->
                 let (tLst, tval) = NR tail
-                (tLst, System.Math.Cos(convertAngle mode tval))
+                (tLst, cosNumber tval)
             | TAN :: tail ->
                 let (tLst, tval) = NR tail
-                (tLst, System.Math.Tan(convertAngle mode tval))
+                (tLst, tanNumber tval)
             | LPAREN :: tail ->
                 let (tLst, tval) = E tail
                 match tLst with 
