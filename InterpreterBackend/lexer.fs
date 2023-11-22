@@ -1,4 +1,4 @@
-﻿// lexer.fs
+// lexer.fs
 namespace InterpreterBackend
 
 module Lexer =
@@ -20,6 +20,8 @@ module Lexer =
         | TAN
         | EQUATION              // Assignment operator
         | VARIABLE of string    // Variable assignment
+        | TYPEINT     // Type declaration
+        | TYPEFLOAT   // Type declaration
 
     let lexError = System.Exception("Lexer error")
 
@@ -62,6 +64,8 @@ module Lexer =
             | 's' :: 'i'::'n'::tail -> SIN :: scan tail
             | 'c' :: 'o'::'s'::tail -> COS :: scan tail
             | 't' :: 'a'::'n'::tail -> TAN :: scan tail
+            | 'i' :: 'n'::'t'::tail -> TYPEINT :: scan tail
+            | 'f' :: 'l'::'o'::'a'::'t'::tail -> TYPEFLOAT :: scan tail
             | c :: tail when isBlank c -> scan tail
             | c :: tail when isDigit c -> 
                 let (iStr, iVal) = scInt(tail, intVal c)
@@ -76,5 +80,3 @@ module Lexer =
             | _ -> raise lexError
 
         scan (str2lst input)
-
-

@@ -185,14 +185,32 @@ module Interpreter =
 
         let VA tList =
             match tList with
-            | VARIABLE vName :: tail -> 
-                match tail with 
-                | EQUATION :: tail ->
-                    let (tLst, tval) = E tail
+            | TYPEINT :: VARIABLE vName :: EQUATION :: tail ->
+                let (|AInt|_|) =
+                    function
+                    | Int x -> Some x
+                    | _ -> None
+                
+                let (tLst, tval) = E tail
+                match tval with
+                | AInt x -> 
                     // Update the symbol table with the variable assignment
                     symbolTable <- Map.add vName tval symbolTable
                     (tLst, tval)
-                | _ -> (E tList)
+
+                
+            | TYPEFLOAT :: VARIABLE vName :: EQUATION :: tail ->
+                let (|AFloat|_|) =
+                    function
+                    | Float x -> Some x
+                    | _ -> None
+                
+                let (tLst, tval) = E tail
+                match tval with
+                | AFloat x -> 
+                    // Update the symbol table with the variable assignment
+                    symbolTable <- Map.add vName tval symbolTable
+                    (tLst, tval)
             | _ -> (E tList)
         VA tList
 
