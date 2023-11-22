@@ -78,5 +78,19 @@ namespace InterpreterGUI
                 txtInput.Text += buttonText;
             }
         }
+        private void Clear_Click(object sender, RoutedEventArgs e)
+        {
+            txtInput.Text = "";
+        }
+
+        private void Backspace_Click(object sender, RoutedEventArgs e)
+        {
+            txtInput.Text = txtInput.Text[..^1];
+        }
+
+        private void BtnGotFocus(object sender, RoutedEventArgs e)
+        {
+            txtInput.Focus();
+        }
     }
 }
