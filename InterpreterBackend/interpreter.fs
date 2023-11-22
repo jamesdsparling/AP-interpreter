@@ -194,10 +194,10 @@ module Interpreter =
                     symbolTable <- Map.add vName tval symbolTable
                     (tLst, tval)
                 | Float x -> 
-                    let itval = int x
+                    let itval = Int(int x)
                     // Update the symbol table with the variable assignment
-                    symbolTable <- Map.add vName (Int(itval)) symbolTable
-                    (tLst, tval)
+                    symbolTable <- Map.add vName itval symbolTable
+                    (tLst, itval)
 
                 
             | TYPEFLOAT :: VARIABLE vName :: EQUATION :: tail ->
@@ -210,9 +210,9 @@ module Interpreter =
                     (tLst, tval)
                 | Int x -> 
                     // Update the symbol table with the variable assignment
-                    let ftval = float x
-                    symbolTable <- Map.add vName (Float(ftval)) symbolTable
-                    (tLst, tval)
+                    let ftval = Float(float x)
+                    symbolTable <- Map.add vName ftval symbolTable
+                    (tLst, ftval)
             | _ -> (E tList)
         VA tList
 
