@@ -25,7 +25,6 @@ namespace InterpreterGUI
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new SymbolViewModel();
         }
 
         private void RunInterpreter()
@@ -41,8 +40,6 @@ namespace InterpreterGUI
                 var result = Interpreter.interpret(txtInput.Text, mode: mode);
                 labOutput.Content = "= " + result.ToString();
                 labOutput.Foreground = new SolidColorBrush(Colors.White);
-                var viewModel = this.DataContext as SymbolViewModel;
-                viewModel?.UpdateSymbols();
             }
             catch (Exception ex)
             {
