@@ -77,14 +77,38 @@ module Interpreter =
         | Int x -> Float(System.Math.Tan(x))
         | Float x -> Float(System.Math.Tan(x))
 
-    let initialSymbolTable =
-        Map.ofList [
-            "x", 10.0;   // Example variable "x" with an initial value
-            "y", 20.0;   // Another example variable "y" with an initial value
-        ]
-
     // Define a symbol table (variableName -> variableValue)
     let mutable symbolTable = Map.empty<string, Number> 
+    type SymbolData = {
+        Key: string
+        Value: Number
+        DisplayValue: string
+        Type: string
+    }
+
+    let symbolList = 
+        Map.toList symbolTable |> List.map (fun (k,v) ->
+            let displayValue, valueType = 
+                match v with
+                | Int i -> i.ToString(), "Int"
+                | Float f -> f.ToString(), "Float"
+            { Key = k; Value = v; DisplayValue = displayValue; Type = valueType }
+        )
+    type SymbolViewModel() = 
+        member val Symbols = ObservableCollection<SymbolData>(symbolList) with get, set
+        member this.UpdateSymbols() = 
+            this.Symbols.Clear()
+            let symbolList = 
+                Map.toList symbolTable |> List.map (fun (k,v) ->
+                    let displayValue, valueType = 
+                        match v with
+                        | Int i -> i.ToString(), "Int"
+                        | Float f -> f.ToString(), "Float"
+                    { Key = k; Value = v; DisplayValue = displayValue; Type = valueType }
+                )
+            for symbol in symbolList do
+                this.Symbols.Add(symbol)
+
 
     // Function to look up variable values
     let lookupVariable variableName =

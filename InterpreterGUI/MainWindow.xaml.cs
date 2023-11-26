@@ -25,6 +25,7 @@ namespace InterpreterGUI
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = new SymbolViewModel();
         }
 
         private void RunInterpreter()
@@ -51,6 +52,8 @@ namespace InterpreterGUI
                     labOutput.Foreground = new SolidColorBrush(Colors.White);
                 }
 
+                var viewModel = this.DataContext as SymbolViewModel;
+                viewModel?.UpdateSymbols();
             }
             catch (Exception ex)
             {

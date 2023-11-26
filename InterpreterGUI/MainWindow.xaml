@@ -72,14 +72,8 @@
             <DataGrid HorizontalAlignment="Stretch" Grid.Column="1" AutoGenerateColumns="False" ItemsSource="{Binding Symbols}" Margin="0,3,8,8">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Variable" Binding="{Binding Key}"/>
-                    <DataGridTextColumn Header="Value" Binding="{Binding Value}"/>
-                    <DataGridTemplateColumn Header="Type">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="Float"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Value" Binding="{Binding DisplayValue}"/>
+                    <DataGridTextColumn Header="Type" Binding="{Binding Type}"/>
                 </DataGrid.Columns>
             </DataGrid>    
             
