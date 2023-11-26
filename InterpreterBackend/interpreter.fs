@@ -77,6 +77,11 @@ module Interpreter =
         | Int x -> Float(System.Math.Tan(x))
         | Float x -> Float(System.Math.Tan(x))
 
+    let numberToFloat (a: Number) =
+        match a with
+        | Int x -> float x
+        | Float x -> x
+
     // Define a symbol table (variableName -> variableValue)
     let mutable symbolTable = Map.empty<string, Number> 
     type SymbolData = {

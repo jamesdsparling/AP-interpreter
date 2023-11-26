@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,33 +33,39 @@ namespace InterpreterGUI
         {
             if (txtInput == null || radioDegrees == null || labOutput == null) { return; }
             if (string.IsNullOrWhiteSpace(txtInput.Text)) { return; }
+            var match = Regex.Match(txtInput.Text, @"y\s*=\s*(.*)", RegexOptions.IgnoreCase);
 
-            try
+            if (match.Success)
             {
-
-                if (txtInput.Text.Contains("for"))
-                {
-                    var result = Interpreter.interpretControlFlow(txtInput.Text);
-                    labOutput.Content = "= " + result.ToString();
-                    labOutput.Foreground = new SolidColorBrush(Colors.White);
-                }
-                else
-                {
-                    var mode = radioDegrees.IsChecked ?? true ?
-                        Interpreter.AngleMode.Degrees :
-                        Interpreter.AngleMode.Radians;
-                    var result = Interpreter.interpret(txtInput.Text, mode: mode);
-                    labOutput.Content = "= " + result.ToString();
-                    labOutput.Foreground = new SolidColorBrush(Colors.White);
-                }
-
-                var viewModel = this.DataContext as SymbolViewModel;
-                viewModel?.UpdateSymbols();
+                // Extracting everything after 'y='
+                string equation = match.Groups[1].Value;
+                var graphView = new GraphView(equation);
+                graphView.Show();
+                labOutput.Content = "Plotting expression, please wait...";
+                labOutput.Foreground = new SolidColorBrush(Colors.Orange);
             }
-            catch (Exception ex)
+            else
             {
-                labOutput.Content = "Error: " + ex.Message;
-                labOutput.Foreground = new SolidColorBrush(Colors.Red);
+
+                try
+                {                	if (txtInput.Text.Contains("for"))
+                	{
+                    	var result = Interpreter.interpretControlFlow(txtInput.Text);
+                    	labOutput.Content = "= " + result.ToString();
+                    	labOutput.Foreground = new SolidColorBrush(Colors.White);
+                	}
+                	else
+                	{
+                    	var mode = radioDegrees.IsChecked ?? true ?                        	Interpreter.AngleMode.Degrees :                        	Interpreter.AngleMode.Radians;                    	var result = Interpreter.interpret(txtInput.Text, mode: mode);                    	labOutput.Content = "= " + result.ToString();                    	labOutput.Foreground = new SolidColorBrush(Colors.White);
+					}
+					
+					var viewModel = this.DataContext as SymbolViewModel;
+                    viewModel?.UpdateSymbols();                }
+                catch (Exception ex)
+                {
+                    labOutput.Content = "Error: " + ex.Message;
+                    labOutput.Foreground = new SolidColorBrush(Colors.Red);
+                }
             }
         }
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
