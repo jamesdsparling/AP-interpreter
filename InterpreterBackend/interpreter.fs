@@ -234,7 +234,7 @@ module Interpreter =
                             | LESSTHAN :: INTEGER value2 :: tail ->
                                 (tail, vName + " is greater than or equal to " + value.ToString() + "; " + vName + " is less than " + value2.ToString())
                             | LESSTHANOREQUAL :: INTEGER value2 :: tail ->
-                                (tail, vName + " is greater than or equal to " + value.ToString() + "; " + vName + " is less than or equal to " + value2.ToString())
+                                (tail, vName + " is greater than or equal to  " + value.ToString() + "; " + vName + " is less than or equal to " + value2.ToString())
                             | _ -> raise parseError
                     | _ -> raise parseError
                 | _ -> raise parseError
