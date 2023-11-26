@@ -9,7 +9,7 @@
         Background="#FF1E1E1E">
 
     <Grid FocusManager.FocusedElement="{Binding ElementName=txtInput}">
-        <TextBox x:Name="txtInput" HorizontalAlignment="Stretch" Height="41" Margin="10" TextWrapping="Wrap" Text="int x=4" VerticalAlignment="Top" FontSize="24" Background="#FF3A3A3A" Foreground="White" KeyDown="TextBox_KeyDown" TextChanged="TextBox_TextChanged"/>
+        <TextBox x:Name="txtInput" HorizontalAlignment="Stretch" Height="41" Margin="10" TextWrapping="Wrap" Text="int x = 4" VerticalAlignment="Top" FontSize="24" Background="#FF3A3A3A" Foreground="White" KeyDown="TextBox_KeyDown" TextChanged="TextBox_TextChanged"/>
         <GroupBox HorizontalAlignment="Left" Height="45" Header="Angle Unit" Margin="10,93,0,0" VerticalAlignment="Top" Width="156" Foreground="White"/>
         <RadioButton x:Name="radioDegrees" Content="Degrees" HorizontalAlignment="Left" Margin="18,113,0,0" VerticalAlignment="Top" Foreground="White" Checked="AngleChanged" IsChecked="True" />
         <RadioButton x:Name="radioRadians" Content="Radians" HorizontalAlignment="Left" Margin="94,113,0,0" VerticalAlignment="Top" Foreground="White" Checked="AngleChanged" />
@@ -41,32 +41,32 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0" Margin="3" Click="Button_Click" GotFocus="BtnGotFocus">(</Button>
-                    <Button Grid.Column="1" Margin="3" Click="Button_Click" GotFocus="BtnGotFocus">)</Button>
+                    <Button Grid.Column="0" Margin="2" Click="Button_Click" GotFocus="BtnGotFocus" Background="#FF3A3A3A" BorderBrush="{x:Null}" Foreground="White" FontFamily="Bahnschrift Light" FontSize="20" >(</Button>
+                    <Button Grid.Column="1" Margin="2" Click="Button_Click" GotFocus="BtnGotFocus" Background="#FF3A3A3A" BorderBrush="{x:Null}" Foreground="White" FontFamily="Bahnschrift Light" FontSize="20" >)</Button>
                 </Grid>
-                <Button Grid.Row="0" Grid.Column="1" Margin="3" Click="Button_Click" GotFocus="BtnGotFocus" >x^</Button>
-                <Button Grid.Row="0" Grid.Column="2" Margin="3" Click="Clear_Click" GotFocus="BtnGotFocus" >Clear</Button>
-                <Button Grid.Row="0" Grid.Column="3" Margin="3" Click="Backspace_Click" GotFocus="BtnGotFocus" >⌫</Button>
-                <Button Grid.Row="1" Grid.Column="0" Margin="3" Click="Button_Click" GotFocus="BtnGotFocus" >sin</Button>
-                <Button Grid.Row="1" Grid.Column="1" Margin="3" Click="Button_Click" GotFocus="BtnGotFocus" >cos</Button>
-                <Button Grid.Row="1" Grid.Column="2" Margin="3" Click="Button_Click" GotFocus="BtnGotFocus" >tan</Button>
-                <Button Grid.Row="1" Grid.Column="3" Margin="3" Click="Button_Click" GotFocus="BtnGotFocus" >%</Button>
-                <Button Grid.Row="2" Grid.Column="0" Margin="3" Click="Button_Click" GotFocus="BtnGotFocus" >7</Button>
-                <Button Grid.Row="2" Grid.Column="1" Margin="3" Click="Button_Click" GotFocus="BtnGotFocus" >8</Button>
-                <Button Grid.Row="2" Grid.Column="2" Margin="3" Click="Button_Click" GotFocus="BtnGotFocus" >9</Button>
-                <Button Grid.Row="2" Grid.Column="3" Margin="3" Click="Button_Click" GotFocus="BtnGotFocus" >/</Button>
-                <Button Grid.Row="3" Grid.Column="0" Margin="3" Click="Button_Click" GotFocus="BtnGotFocus" >4</Button>
-                <Button Grid.Row="3" Grid.Column="1" Margin="3" Click="Button_Click" GotFocus="BtnGotFocus" >5</Button>
-                <Button Grid.Row="3" Grid.Column="2" Margin="3" Click="Button_Click" GotFocus="BtnGotFocus" >6</Button>
-                <Button Grid.Row="3" Grid.Column="3" Margin="3" Click="Button_Click" GotFocus="BtnGotFocus" >*</Button>
-                <Button Grid.Row="4" Grid.Column="0" Margin="3" Click="Button_Click" GotFocus="BtnGotFocus" >1</Button>
-                <Button Grid.Row="4" Grid.Column="1" Margin="3" Click="Button_Click" GotFocus="BtnGotFocus" >2</Button>
-                <Button Grid.Row="4" Grid.Column="2" Margin="3" Click="Button_Click" GotFocus="BtnGotFocus" >3</Button>
-                <Button Grid.Row="4" Grid.Column="3" Margin="3" Click="Button_Click" GotFocus="BtnGotFocus" >-</Button>
-                <Button Grid.Row="5" Grid.Column="0" Margin="3" Click="Button_Click" GotFocus="BtnGotFocus" >.</Button>
-                <Button Grid.Row="5" Grid.Column="1" Margin="3" Click="Button_Click" GotFocus="BtnGotFocus" >0</Button>
-                <Button Grid.Row="5" Grid.Column="2" Margin="3" Click="Equ_Click" GotFocus="BtnGotFocus">=</Button>
-                <Button Grid.Row="5" Grid.Column="3" Margin="3" Click="Button_Click" GotFocus="BtnGotFocus" >+</Button>
+                <Button Grid.Row="0" Grid.Column="1" Margin="2" Click="Button_Click" GotFocus="BtnGotFocus" Background="#FF3A3A3A" BorderBrush="{x:Null}" Foreground="White" FontFamily="Bahnschrift Light" FontSize="20" >x^</Button>
+                <Button Grid.Row="0" Grid.Column="2" Margin="2" Click="Clear_Click" GotFocus="BtnGotFocus" Background="#FF3A3A3A" BorderBrush="{x:Null}" Foreground="White" FontFamily="Bahnschrift Light" FontSize="20" >Clear</Button>
+                <Button Grid.Row="0" Grid.Column="3" Margin="2" Click="Backspace_Click" GotFocus="BtnGotFocus" Background="#FF3A3A3A" BorderBrush="{x:Null}" Foreground="White" FontFamily="Bahnschrift Light" FontSize="20" >⌫</Button>
+                <Button Grid.Row="1" Grid.Column="0" Margin="2" Click="Button_Click" GotFocus="BtnGotFocus" Background="#FF3A3A3A" BorderBrush="{x:Null}" Foreground="White" FontFamily="Bahnschrift Light" FontSize="20" >sin</Button>
+                <Button Grid.Row="1" Grid.Column="1" Margin="2" Click="Button_Click" GotFocus="BtnGotFocus" Background="#FF3A3A3A" BorderBrush="{x:Null}" Foreground="White" FontFamily="Bahnschrift Light" FontSize="20" >cos</Button>
+                <Button Grid.Row="1" Grid.Column="2" Margin="2" Click="Button_Click" GotFocus="BtnGotFocus" Background="#FF3A3A3A" BorderBrush="{x:Null}" Foreground="White" FontFamily="Bahnschrift Light" FontSize="20" >tan</Button>
+                <Button Grid.Row="1" Grid.Column="3" Margin="2" Click="Button_Click" GotFocus="BtnGotFocus" Background="#FF3A3A3A" BorderBrush="{x:Null}" Foreground="White" FontFamily="Bahnschrift Light" FontSize="20" >%</Button>
+                <Button Grid.Row="2" Grid.Column="0" Margin="2" Click="Button_Click" GotFocus="BtnGotFocus" Background="#FF3A3A3A" BorderBrush="{x:Null}" Foreground="White" FontFamily="Bahnschrift Light" FontSize="20" >7</Button>
+                <Button Grid.Row="2" Grid.Column="1" Margin="2" Click="Button_Click" GotFocus="BtnGotFocus" Background="#FF3A3A3A" BorderBrush="{x:Null}" Foreground="White" FontFamily="Bahnschrift Light" FontSize="20" >8</Button>
+                <Button Grid.Row="2" Grid.Column="2" Margin="2" Click="Button_Click" GotFocus="BtnGotFocus" Background="#FF3A3A3A" BorderBrush="{x:Null}" Foreground="White" FontFamily="Bahnschrift Light" FontSize="20" >9</Button>
+                <Button Grid.Row="2" Grid.Column="3" Margin="2" Click="Button_Click" GotFocus="BtnGotFocus" Background="#FF3A3A3A" BorderBrush="{x:Null}" Foreground="White" FontFamily="Bahnschrift Light" FontSize="20" >/</Button>
+                <Button Grid.Row="3" Grid.Column="0" Margin="2" Click="Button_Click" GotFocus="BtnGotFocus" Background="#FF3A3A3A" BorderBrush="{x:Null}" Foreground="White" FontFamily="Bahnschrift Light" FontSize="20" >4</Button>
+                <Button Grid.Row="3" Grid.Column="1" Margin="2" Click="Button_Click" GotFocus="BtnGotFocus" Background="#FF3A3A3A" BorderBrush="{x:Null}" Foreground="White" FontFamily="Bahnschrift Light" FontSize="20" >5</Button>
+                <Button Grid.Row="3" Grid.Column="2" Margin="2" Click="Button_Click" GotFocus="BtnGotFocus" Background="#FF3A3A3A" BorderBrush="{x:Null}" Foreground="White" FontFamily="Bahnschrift Light" FontSize="20" >6</Button>
+                <Button Grid.Row="3" Grid.Column="3" Margin="2" Click="Button_Click" GotFocus="BtnGotFocus" Background="#FF3A3A3A" BorderBrush="{x:Null}" Foreground="White" FontFamily="Bahnschrift Light" FontSize="20" >*</Button>
+                <Button Grid.Row="4" Grid.Column="0" Margin="2" Click="Button_Click" GotFocus="BtnGotFocus" Background="#FF3A3A3A" BorderBrush="{x:Null}" Foreground="White" FontFamily="Bahnschrift Light" FontSize="20" >1</Button>
+                <Button Grid.Row="4" Grid.Column="1" Margin="2" Click="Button_Click" GotFocus="BtnGotFocus" Background="#FF3A3A3A" BorderBrush="{x:Null}" Foreground="White" FontFamily="Bahnschrift Light" FontSize="20" >2</Button>
+                <Button Grid.Row="4" Grid.Column="2" Margin="2" Click="Button_Click" GotFocus="BtnGotFocus" Background="#FF3A3A3A" BorderBrush="{x:Null}" Foreground="White" FontFamily="Bahnschrift Light" FontSize="20" >3</Button>
+                <Button Grid.Row="4" Grid.Column="3" Margin="2" Click="Button_Click" GotFocus="BtnGotFocus" Background="#FF3A3A3A" BorderBrush="{x:Null}" Foreground="White" FontFamily="Bahnschrift Light" FontSize="20" >-</Button>
+                <Button Grid.Row="5" Grid.Column="0" Margin="2" Click="Button_Click" GotFocus="BtnGotFocus" Background="#FF3A3A3A" BorderBrush="{x:Null}" Foreground="White" FontFamily="Bahnschrift Light" FontSize="20" >.</Button>
+                <Button Grid.Row="5" Grid.Column="1" Margin="2" Click="Button_Click" GotFocus="BtnGotFocus" Background="#FF3A3A3A" BorderBrush="{x:Null}" Foreground="White" FontFamily="Bahnschrift Light" FontSize="20" >0</Button>
+                <Button Grid.Row="5" Grid.Column="2" Margin="2" Click="Equ_Click" GotFocus="BtnGotFocus" Background="#FF3A3A3A" BorderBrush="{x:Null}" Foreground="White" FontFamily="Bahnschrift Light" FontSize="20" >=</Button>
+                <Button Grid.Row="5" Grid.Column="3" Margin="2" Click="Button_Click" GotFocus="BtnGotFocus" Background="#FF3A3A3A" BorderBrush="{x:Null}" Foreground="White" FontFamily="Bahnschrift Light" FontSize="20" >+</Button>
             </Grid>
 
             <DataGrid HorizontalAlignment="Stretch" Grid.Column="1" AutoGenerateColumns="False" ItemsSource="{Binding Symbols}" Margin="0,3,8,8">

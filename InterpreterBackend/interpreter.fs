@@ -186,7 +186,6 @@ module Interpreter =
         let VA tList =
             match tList with
             | TYPEINT :: VARIABLE vName :: EQUATION :: tail ->
-               
                 let (tLst, tval) = E tail
                 match tval with
                 | Int x -> 
@@ -199,9 +198,7 @@ module Interpreter =
                     symbolTable <- Map.add vName itval symbolTable
                     (tLst, itval)
 
-                
             | TYPEFLOAT :: VARIABLE vName :: EQUATION :: tail ->
-                
                 let (tLst, tval) = E tail
                 match tval with
                 | Float x -> 
@@ -213,12 +210,44 @@ module Interpreter =
                     let ftval = Float(float x)
                     symbolTable <- Map.add vName ftval symbolTable
                     (tLst, ftval)
+
+            | FORLOOP :: INTEGER value :: LESSTHAN :: VARIABLE vName :: LESSTHAN :: INTEGER value2 :: tail ->
+                let (tLst, tval) = E tail
+                (tLst, tval)
             | _ -> (E tList)
         VA tList
+
+    let rec controlFlow tList =
+        let rec CF tList =
+            match tList with
+            | FORLOOP :: INTEGER value :: tail ->
+                match tail with
+                    | LESSTHAN :: VARIABLE vName :: tail ->
+                        match tail with
+                            | LESSTHAN :: INTEGER value2 :: tail ->
+                                (tail, vName + " is greater than " + value.ToString() + "; " + vName + " is less than " + value2.ToString())
+                            | LESSTHANOREQUAL :: INTEGER value2 :: tail ->
+                                (tail, vName + " is greater than " + value.ToString() + "; " + vName + " is less than or equal to " + value2.ToString())
+                            | _ -> raise parseError
+                    | LESSTHANOREQUAL :: VARIABLE vName :: tail ->
+                        match tail with
+                            | LESSTHAN :: INTEGER value2 :: tail ->
+                                (tail, vName + " is greater than or equal to " + value.ToString() + "; " + vName + " is less than " + value2.ToString())
+                            | LESSTHANOREQUAL :: INTEGER value2 :: tail ->
+                                (tail, vName + " is greater than or equal to " + value.ToString() + "; " + vName + " is less than or equal to " + value2.ToString())
+                            | _ -> raise parseError
+                    | _ -> raise parseError
+                | _ -> raise parseError
+        CF tList
 
 
     let interpret input mode =
         let tokens = lexer input
         let _, result = evaluateExpr tokens mode
+        result
+
+    let interpretControlFlow input =
+        let tokens = lexer input
+        let _, result = controlFlow tokens
         result
 

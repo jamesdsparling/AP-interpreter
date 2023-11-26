@@ -34,12 +34,23 @@ namespace InterpreterGUI
 
             try
             {
-                var mode = radioDegrees.IsChecked ?? true ?
-                    Interpreter.AngleMode.Degrees :
-                    Interpreter.AngleMode.Radians;
-                var result = Interpreter.interpret(txtInput.Text, mode: mode);
-                labOutput.Content = "= " + result.ToString();
-                labOutput.Foreground = new SolidColorBrush(Colors.White);
+
+                if (txtInput.Text.Contains("for"))
+                {
+                    var result = Interpreter.interpretControlFlow(txtInput.Text);
+                    labOutput.Content = "= " + result.ToString();
+                    labOutput.Foreground = new SolidColorBrush(Colors.White);
+                }
+                else
+                {
+                    var mode = radioDegrees.IsChecked ?? true ?
+                        Interpreter.AngleMode.Degrees :
+                        Interpreter.AngleMode.Radians;
+                    var result = Interpreter.interpret(txtInput.Text, mode: mode);
+                    labOutput.Content = "= " + result.ToString();
+                    labOutput.Foreground = new SolidColorBrush(Colors.White);
+                }
+
             }
             catch (Exception ex)
             {
