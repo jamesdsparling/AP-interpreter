@@ -40,7 +40,8 @@ namespace InterpreterGUI
 
             for (double x = minX; x <= maxX; x += step)
             {
-                Number yNum = Interpreter.interpret(expression.Replace("x", x.ToString()), AngleMode.Degrees);
+                string xAsString = x.ToString("0.#############################");
+                Number yNum = Interpreter.interpret(expression.Replace("x", xAsString), AngleMode.Degrees);
                 double y = Interpreter.numberToFloat(yNum);
                 points.Add(new DataPoint(x, y));
             }
@@ -52,7 +53,7 @@ namespace InterpreterGUI
         {
             plotModel = new PlotModel { Title = "Graph of " + expression };
 
-            var points = ComputeGraphPoints(expression, -10, 10, 1);
+            var points = ComputeGraphPoints(expression, -10, 10, 0.1);
 
             var lineSeries = new LineSeries();
             foreach (var point in points)

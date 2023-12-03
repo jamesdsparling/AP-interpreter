@@ -48,7 +48,8 @@ namespace InterpreterGUI
             {
 
                 try
-                {                	if (txtInput.Text.Contains("for"))
+                {
+                	if (txtInput.Text.Contains("for"))
                 	{
                     	var result = Interpreter.interpretControlFlow(txtInput.Text);
                     	labOutput.Content = "= " + result.ToString();
@@ -56,11 +57,17 @@ namespace InterpreterGUI
                 	}
                 	else
                 	{
-                    	var mode = radioDegrees.IsChecked ?? true ?                        	Interpreter.AngleMode.Degrees :                        	Interpreter.AngleMode.Radians;                    	var result = Interpreter.interpret(txtInput.Text, mode: mode);                    	labOutput.Content = "= " + result.ToString();                    	labOutput.Foreground = new SolidColorBrush(Colors.White);
+                    	var mode = radioDegrees.IsChecked ?? true ?
+                        	Interpreter.AngleMode.Degrees :
+                        	Interpreter.AngleMode.Radians;
+                    	var result = Interpreter.interpret(txtInput.Text, mode: mode);
+                    	labOutput.Content = "= " + result.ToString();
+                    	labOutput.Foreground = new SolidColorBrush(Colors.White);
 					}
 					
 					var viewModel = this.DataContext as SymbolViewModel;
-                    viewModel?.UpdateSymbols();                }
+                    viewModel?.UpdateSymbols();
+                }
                 catch (Exception ex)
                 {
                     labOutput.Content = "Error: " + ex.Message;
