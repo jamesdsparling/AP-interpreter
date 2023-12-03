@@ -33,7 +33,7 @@ namespace InterpreterGUI
         {
             if (txtInput == null || radioDegrees == null || labOutput == null) { return; }
             if (string.IsNullOrWhiteSpace(txtInput.Text)) { return; }
-            var match = Regex.Match(txtInput.Text, @"y\s*=\s*(.*)", RegexOptions.IgnoreCase);
+            var match = Regex.Match(txtInput.Text, @"^y\s*=\s*(.*)", RegexOptions.IgnoreCase);
 
             if (match.Success)
             {
