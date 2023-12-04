@@ -23,9 +23,12 @@ namespace InterpreterGUI
     /// </summary>
     public partial class MainWindow : Window
     {
+        private GraphView graphView;
+
         public MainWindow()
         {
             InitializeComponent();
+            this.graphView = new GraphView();
             this.DataContext = new SymbolViewModel();
         }
 
@@ -39,7 +42,11 @@ namespace InterpreterGUI
             {
                 // Extracting everything after 'y='
                 string equation = match.Groups[1].Value;
-                var graphView = new GraphView(equation);
+                if (!this.graphView.IsLoaded)
+                {
+                    this.graphView = new GraphView();
+                }
+                this.graphView.SetupGraph(equation);
                 graphView.Show();
                 labOutput.Content = "Plotting expression, please wait...";
                 labOutput.Foreground = new SolidColorBrush(Colors.Orange);

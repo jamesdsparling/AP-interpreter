@@ -23,15 +23,13 @@ namespace InterpreterGUI
     /// </summary>
     public partial class GraphView : Window
     {
-        private string expression;
         private PlotModel plotModel;
 
 
-        public GraphView(string equation)
+        public GraphView()
         {
             InitializeComponent();
-            this.expression = equation;
-            SetupGraph();
+            plotModel = new PlotModel { Title = "GraphView" };
         }
 
         private List<DataPoint> ComputeGraphPoints(string expression, double minX, double maxX, double step)
@@ -49,11 +47,9 @@ namespace InterpreterGUI
             return points;
         }
 
-        private void SetupGraph()
+        public void SetupGraph(string expression)
         {
-            plotModel = new PlotModel { Title = "Graph of " + expression };
-
-            var points = ComputeGraphPoints(expression, -10, 10, 0.1);
+            var points = ComputeGraphPoints(expression, -10, 10, 0.01);
 
             var lineSeries = new LineSeries();
             foreach (var point in points)
@@ -63,6 +59,7 @@ namespace InterpreterGUI
 
             plotModel.Series.Add(lineSeries);
 
+            plotView.InvalidatePlot(true);
             plotView.Model = plotModel;
         }
     }

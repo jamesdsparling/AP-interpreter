@@ -13,7 +13,7 @@
         <Label x:Name="labOutput" Content="= 0" HorizontalAlignment="Left" Margin="10,56,0,0" VerticalAlignment="Top" FontSize="22" Foreground="Gray"/>
 
         <TabControl Margin="0,100,0,0">
-            <TabItem Header="Button">
+            <TabItem Header="Buttons">
 
                 <Grid x:Name="btnGrid" Grid.Column="0" HorizontalAlignment="Stretch" Margin="5,0, 5, 5">
                     <Grid.ColumnDefinitions>
