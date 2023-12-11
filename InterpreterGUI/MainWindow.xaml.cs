@@ -36,12 +36,52 @@ namespace InterpreterGUI
         {
             if (txtInput == null || radioDegrees == null || labOutput == null) { return; }
             if (string.IsNullOrWhiteSpace(txtInput.Text)) { return; }
-            var match = Regex.Match(txtInput.Text, @"^y\s*=\s*(.*)", RegexOptions.IgnoreCase);
 
-            if (match.Success)
+            var matchExpForRange    = Regex.Match(txtInput.Text, @"^y\s*=\s*(.*)\s*for\s(-?\d+)\s*(<|<=)\s*x\s*(<|<=)\s*(-?\d+);\s*(\d+[.]\d+|\d+$)", RegexOptions.IgnoreCase);
+            var matchExpFor         = Regex.Match(txtInput.Text, @"^y\s*=\s*(.*)\s*for\s(-?\d+)\s*(<|<=)\s*x\s*(<|<=)\s*(-?\d+)", RegexOptions.IgnoreCase);
+            var matchExp            = Regex.Match(txtInput.Text, @"^y\s*=\s*(.*)", RegexOptions.IgnoreCase);
+            if (matchExpForRange.Success)
+            {
+                // Extracting everything after 'y=', 'for' and increment
+                string equation = matchExpForRange.Groups[1].Value;
+                int range1 = Convert.ToInt32(matchExpForRange.Groups[2].Value);
+                string rangeSymbol1 = matchExpForRange.Groups[3].Value;
+                string rangeSymbol2 = matchExpForRange.Groups[4].Value;
+                int range2 = Convert.ToInt32(matchExpForRange.Groups[5].Value);
+                double step = double.Parse(matchExpForRange.Groups[6].Value);
+                if (rangeSymbol1 == "<"){range1++;}
+                if (rangeSymbol2 == "<"){range2--;}
+                if (!this.graphView.IsLoaded)
+                {
+                    this.graphView = new GraphView();
+                }
+                this.graphView.SetupGraphForRange(equation, range1, range2, step);
+                graphView.Show();
+                labOutput.Content = "Plotting expression, please wait...";
+                labOutput.Foreground = new SolidColorBrush(Colors.Orange);
+            }
+            else if (matchExpFor.Success)
+            {
+                // Extracting everything after 'y=' and 'for'
+                string equation = matchExpFor.Groups[1].Value;
+                int range1 = Convert.ToInt32(matchExpFor.Groups[2].Value);
+                string rangeSymbol1 = matchExpFor.Groups[3].Value;
+                string rangeSymbol2 = matchExpFor.Groups[4].Value;
+                int range2 = Convert.ToInt32(matchExpFor.Groups[5].Value);
+                if (!this.graphView.IsLoaded)
+                {
+                    this.graphView = new GraphView();
+                }
+                double step = 0.01;
+                this.graphView.SetupGraphForRange(equation, range1, range2, step);
+                graphView.Show();
+                labOutput.Content = "Plotting expression, please wait...";
+                labOutput.Foreground = new SolidColorBrush(Colors.Orange);
+            }
+            else if (matchExp.Success)
             {
                 // Extracting everything after 'y='
-                string equation = match.Groups[1].Value;
+                string equation = matchExp.Groups[1].Value;
                 if (!this.graphView.IsLoaded)
                 {
                     this.graphView = new GraphView();
@@ -56,23 +96,23 @@ namespace InterpreterGUI
 
                 try
                 {
-                	if (txtInput.Text.Contains("for"))
-                	{
-                    	var result = Interpreter.interpretControlFlow(txtInput.Text);
-                    	labOutput.Content = "= " + result.ToString();
-                    	labOutput.Foreground = new SolidColorBrush(Colors.White);
-                	}
-                	else
-                	{
-                    	var mode = radioDegrees.IsChecked ?? true ?
-                        	Interpreter.AngleMode.Degrees :
-                        	Interpreter.AngleMode.Radians;
-                    	var result = Interpreter.interpret(txtInput.Text, mode: mode);
-                    	labOutput.Content = "= " + result.ToString();
-                    	labOutput.Foreground = new SolidColorBrush(Colors.White);
-					}
-					
-					var viewModel = this.DataContext as SymbolViewModel;
+                    if (txtInput.Text.Contains("for"))
+                    {
+                        var result = Interpreter.interpretControlFlow(txtInput.Text);
+                        labOutput.Content = "= " + result.ToString();
+                        labOutput.Foreground = new SolidColorBrush(Colors.White);
+                    }
+                    else
+                    {
+                        var mode = radioDegrees.IsChecked ?? true ?
+                            Interpreter.AngleMode.Degrees :
+                            Interpreter.AngleMode.Radians;
+                        var result = Interpreter.interpret(txtInput.Text, mode: mode);
+                        labOutput.Content = "= " + result.ToString();
+                        labOutput.Foreground = new SolidColorBrush(Colors.White);
+                    }
+
+                    var viewModel = this.DataContext as SymbolViewModel;
                     viewModel?.UpdateSymbols();
                 }
                 catch (Exception ex)
@@ -81,6 +121,7 @@ namespace InterpreterGUI
                     labOutput.Foreground = new SolidColorBrush(Colors.Red);
                 }
             }
+
         }
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {

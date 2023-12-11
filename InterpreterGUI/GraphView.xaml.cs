@@ -47,6 +47,21 @@ namespace InterpreterGUI
             return points;
         }
 
+        public void SetupGraphForRange(string expression, int range1, int range2, double step)
+        {
+            var points = ComputeGraphPoints(expression, range1, range2, step);
+
+            var lineSeries = new LineSeries();
+            foreach (var point in points)
+            {
+                lineSeries.Points.Add(point);
+            }
+
+            plotModel.Series.Add(lineSeries);
+
+            plotView.InvalidatePlot(true);
+            plotView.Model = plotModel;
+        }
         public void SetupGraph(string expression)
         {
             var points = ComputeGraphPoints(expression, -10, 10, 0.01);
@@ -62,5 +77,6 @@ namespace InterpreterGUI
             plotView.InvalidatePlot(true);
             plotView.Model = plotModel;
         }
+
     }
 }
