@@ -39,9 +39,15 @@ namespace InterpreterGUI
             for (double x = minX; x <= maxX; x += step)
             {
                 string xAsString = x.ToString("0.#############################");
-                Number yNum = Interpreter.interpret(expression.Replace("x", "(" + xAsString + ")"), AngleMode.Degrees);
-                double y = Interpreter.numberToFloat(yNum);
-                points.Add(new DataPoint(x, y));
+                try
+                {
+                    Number yNum = Interpreter.interpret(expression.Replace("x", "(" + xAsString + ")"), AngleMode.Degrees);
+                    double y = Interpreter.numberToFloat(yNum);
+                    points.Add(new DataPoint(x, y));
+                } catch (Exception ex)
+                {
+                    // TODO: handle error
+                }
             }
 
             return points;
