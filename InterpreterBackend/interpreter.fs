@@ -62,20 +62,31 @@ module Interpreter =
         | Int x -> Int (-x)
         | Float x -> Float (-x)
 
-    let sinNumber a =
-        match a with
-        | Int x -> Float(System.Math.Sin(x))
-        | Float x -> Float(System.Math.Sin(x))
+    let convertAngle mode value =
+        match mode with
+        | Degrees -> value * toRadians
+        | Radians -> value
 
-    let cosNumber a =
-        match a with
-        | Int x -> Float(System.Math.Cos(x))
-        | Float x -> Float(System.Math.Cos(x))
+    let sinNumber mode a =
+        let angleInRadians = 
+            match a with
+            | Int x -> convertAngle mode (float x)
+            | Float x -> convertAngle mode x
+        Float(System.Math.Sin(angleInRadians))
 
-    let tanNumber a =
-        match a with
-        | Int x -> Float(System.Math.Tan(x))
-        | Float x -> Float(System.Math.Tan(x))
+    let cosNumber mode a =
+        let angleInRadians = 
+            match a with
+            | Int x -> convertAngle mode (float x)
+            | Float x -> convertAngle mode x
+        Float(System.Math.Cos(angleInRadians))
+
+    let tanNumber mode a =
+        let angleInRadians = 
+            match a with
+            | Int x -> convertAngle mode (float x)
+            | Float x -> convertAngle mode x
+        Float(System.Math.Tan(angleInRadians))
 
     let numberToFloat (a: Number) =
         match a with
@@ -122,10 +133,6 @@ module Interpreter =
         | None -> raise parseError
 
     let rec evaluateExpr tList mode =
-        let convertAngle mode value =
-            match mode with
-            | Degrees -> value * toRadians
-            | Radians -> value
 
         // Expression - addition & subtraction
         let rec E tList = (T >> Eopt) tList 
@@ -198,13 +205,13 @@ module Interpreter =
                 (tLst, negateNumber tval)
             | SIN :: tail ->
                 let (tLst, tval) = NR tail
-                (tLst, sinNumber tval)
+                (tLst, sinNumber mode tval)
             | COS :: tail ->
                 let (tLst, tval) = NR tail
-                (tLst, cosNumber tval)
+                (tLst, cosNumber mode tval)
             | TAN :: tail ->
                 let (tLst, tval) = NR tail
-                (tLst, tanNumber tval)
+                (tLst, tanNumber mode tval)
             | LPAREN :: tail ->
                 let (tLst, tval) = E tail
                 match tLst with 
