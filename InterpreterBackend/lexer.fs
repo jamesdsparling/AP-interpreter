@@ -62,6 +62,7 @@ module Lexer =
             | '*' :: tail -> TIMES :: scan tail
             | '/' :: tail -> DIVIDE :: scan tail
             | '^' :: tail -> POWER :: scan tail
+            | '%' :: tail -> REMAINDER :: scan tail
             | '(' :: tail -> LPAREN :: scan tail
             | ')' :: tail -> RPAREN :: scan tail
             | '=' :: tail -> EQUATION :: scan tail
