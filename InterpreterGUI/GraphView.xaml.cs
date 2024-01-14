@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using InterpreterBackend;
 using OxyPlot;
+using OxyPlot.Axes;
 using OxyPlot.Series;
 using static InterpreterBackend.Interpreter;
 
@@ -79,6 +80,8 @@ namespace InterpreterGUI
             }
 
             plotModel.Series.Add(lineSeries);
+
+            plotModel.PlotType = PlotType.Cartesian;
 
             plotView.InvalidatePlot(true);
             plotView.Model = plotModel;
