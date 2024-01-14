@@ -62,6 +62,7 @@ module Interpreter =
         | Int x -> Int (-x)
         | Float x -> Float (-x)
 
+    // Convert degrees to radians when necessary
     let convertAngle mode value =
         match mode with
         | Degrees -> value * toRadians
@@ -102,6 +103,7 @@ module Interpreter =
         Type: string
     }
 
+    // symbolList to store currently assigned variables with name, value & type
     let symbolList = 
         Map.toList symbolTable |> List.map (fun (k,v) ->
             let displayValue, valueType = 
@@ -110,8 +112,11 @@ module Interpreter =
                 | Float f -> f.ToString(), "Float"
             { Key = k; Value = v; DisplayValue = displayValue; Type = valueType }
         )
+
+    // View model used to drive the GUI variable viewer
     type SymbolViewModel() = 
         member val Symbols = ObservableCollection<SymbolData>(symbolList) with get, set
+        // UpdateSymbols: refresh Symbols ObservableCollection with latest variable data
         member this.UpdateSymbols() = 
             this.Symbols.Clear()
             let symbolList = 
@@ -219,6 +224,7 @@ module Interpreter =
                 | _ -> raise parseError
             | _ -> raise parseError
 
+        // Variable Assignment & for loop expressions
         let VA tList =
             match tList with
             | TYPEINT :: VARIABLE vName :: EQUATION :: tail ->

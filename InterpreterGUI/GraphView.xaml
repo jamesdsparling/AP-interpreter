@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:InterpreterGUI"
         xmlns:oxy="http://oxyplot.org/wpf" x:Class="InterpreterGUI.GraphView"
         mc:Ignorable="d"
-        Title="GraphView" Height="450" Width="800">
+        Title="GraphView" Height="830" Width="800">
     <Grid>
 
         <oxy:PlotView x:Name="plotView"/>
