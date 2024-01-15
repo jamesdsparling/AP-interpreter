@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InterpreterGUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="Interpreter" Height="450" Width="800"
         Background="#FF1E1E1E">
 
     <Grid FocusManager.FocusedElement="{Binding ElementName=txtInput}">
