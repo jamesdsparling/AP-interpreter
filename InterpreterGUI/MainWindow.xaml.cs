@@ -161,7 +161,10 @@ namespace InterpreterGUI
 
         private void Backspace_Click(object sender, RoutedEventArgs e)
         {
-            txtInput.Text = txtInput.Text[..^1];
+            if (!string.isNullOrEmpty(txtInput.text))
+            {
+                txtInput.Text = txtInput.Text[..^1];
+            }
         }
 
         private void BtnGotFocus(object sender, RoutedEventArgs e)
